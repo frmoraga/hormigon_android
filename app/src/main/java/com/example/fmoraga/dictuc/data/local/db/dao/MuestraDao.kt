@@ -21,6 +21,17 @@ interface MuestraDao {
     @Query("DELETE FROM muestra")
     suspend fun deleteAllMuestras()
 
+    /**
+     * Borra muestras que el servidor ya no envía Y que no están referenciadas
+     * en muestra_planificacion (pendientes o tomadas hoy).
+     */
+    @Query("""
+        DELETE FROM muestra
+        WHERE id_muestra NOT IN (:serverIds)
+        AND id_muestra NOT IN (SELECT id_muestra FROM muestra_planificacion)
+    """)
+    suspend fun deleteMuestrasNotInPlanificacion(serverIds: List<Long>)
+
     // ─── Planificación ───────────────────────────────────────────────────
 
     @Query("""

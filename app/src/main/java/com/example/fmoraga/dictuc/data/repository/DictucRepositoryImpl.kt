@@ -124,8 +124,12 @@ class DictucRepositoryImpl @Inject constructor(
 
     override suspend fun syncMuestrasFromServer(): Result<Unit> = runCatching {
         val dtos = api.getMuestras()
-        muestraDao.deleteAllMuestras()
-        muestraDao.insertMuestras(dtos.map { it.toEntity() })
+        val entities = dtos.map { it.toEntity() }
+        val serverIds = entities.map { it.idMuestra }
+        muestraDao.insertMuestras(entities)
+        if (serverIds.isNotEmpty()) {
+            muestraDao.deleteMuestrasNotInPlanificacion(serverIds)
+        }
     }
 
     override suspend fun syncMuestreadoresFromServer(): Result<Unit> = runCatching {
