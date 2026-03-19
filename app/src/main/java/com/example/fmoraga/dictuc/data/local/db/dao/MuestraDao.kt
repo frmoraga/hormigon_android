@@ -25,7 +25,7 @@ interface MuestraDao {
 
     @Query("""
         SELECT mp.id, mp.id_muestra, mp.id_muestreador,
-               CASE WHEN mt.id_muestra IS NOT NULL THEN MAX(mp.id_estado, 1) ELSE mp.id_estado END AS id_estado,
+               CASE WHEN mt.id_muestra IS NOT NULL THEN MAX(mp.id_estado, 2) ELSE mp.id_estado END AS id_estado,
                COALESCE(mt.enviado, 0) AS enviado,
                COALESCE(m.card_fname, '') AS card_fname,
                COALESCE(m.address, '') AS address,

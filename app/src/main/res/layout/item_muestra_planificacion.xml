@@ -16,15 +16,31 @@
         android:orientation="vertical">
 
         <!-- Barra de estado superior -->
-        <TextView
-            android:id="@+id/txtEstadoBarra"
+        <LinearLayout
+            android:id="@+id/layoutEstadoBarra"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:paddingHorizontal="12dp"
-            android:paddingVertical="6dp"
-            android:textAppearance="?attr/textAppearanceLabelMedium"
-            android:textColor="@android:color/white"
-            android:gravity="center" />
+            android:paddingVertical="6dp">
+
+            <TextView
+                android:id="@+id/txtEstadoBarra"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="?attr/textAppearanceLabelMedium"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/txtIdMuestra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceLabelMedium"
+                android:textColor="@android:color/white"
+                android:alpha="0.8" />
+
+        </LinearLayout>
 
         <!-- Contenido de la tarjeta -->
         <LinearLayout

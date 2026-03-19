@@ -27,6 +27,15 @@ class RetiroViewModel @Inject constructor(
     private val _retirado = MutableStateFlow(false)
     val retirado: StateFlow<Boolean> = _retirado
 
+    private val _yaRetirada = MutableStateFlow(false)
+    val yaRetirada: StateFlow<Boolean> = _yaRetirada
+
+    fun checkYaRetirada(idMuestra: Long) {
+        viewModelScope.launch {
+            _yaRetirada.value = repository.getMuestraRetirada(idMuestra) != null
+        }
+    }
+
     fun retirarMuestra(idMuestra: Long, pathFoto: String, observacion: String) {
         viewModelScope.launch {
             val idMuestreador = userPreferences.idMuestreador.first()

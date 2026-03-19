@@ -32,10 +32,10 @@ class ListaMuestraViewModel @Inject constructor(
 
     /** Pendientes primero, luego suspendidas, tomadas y retiradas al final. */
     private fun estadoOrden(estado: Int) = when (estado) {
-        0 -> 0   // pendiente
-        2 -> 1   // suspendida (requiere atención)
-        1 -> 2   // tomada
-        3 -> 3   // retirada
+        1 -> 0   // pendiente (servidor: 1)
+        3 -> 1   // suspendida (servidor: 3, requiere atención)
+        2 -> 2   // tomada (servidor: 2)
+        4 -> 3   // retirada (servidor: 4)
         else -> 4
     }
 

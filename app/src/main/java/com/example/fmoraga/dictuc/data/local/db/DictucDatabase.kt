@@ -19,7 +19,7 @@ import com.example.fmoraga.dictuc.data.local.db.entity.*
         ProbetaExtraEntity::class,
         RetiroMuestraEntity::class
     ],
-    version = 2,
+    version = 4,
     exportSchema = false
 )
 abstract class DictucDatabase : RoomDatabase() {

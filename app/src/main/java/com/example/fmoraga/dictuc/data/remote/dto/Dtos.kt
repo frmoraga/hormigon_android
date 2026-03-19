@@ -69,18 +69,19 @@ data class MuestraPlanificacionDto(
 // ─── RetiroMuestra ───────────────────────────────────────────────────────
 
 data class RetiroMuestraDto(
-    @SerializedName("id") val id: Long,
     @SerializedName("id_muestra") val idMuestra: Long,
-    @SerializedName("run_muestreador") val runMuestreador: Long,
-    @SerializedName("fecha_programada") val fechaProgramada: String,
-    @SerializedName("CardFName") val cardFName: String,
-    @SerializedName("Address") val address: String,
-    @SerializedName("County") val county: String,
-    @SerializedName("nombre_material") val nombreMaterial: String
+    @SerializedName("id_muestreador") val idMuestreador: Long,
+    @SerializedName("fecha_muestreo") val fechaMuestreo: String = "",
+    @SerializedName("nombre_obra") val nombreObra: String = "",
+    @SerializedName("direccion") val direccion: String = "",
+    @SerializedName("nombre_probeta") val nombreProbeta: String = "",
+    @SerializedName("num_boleta") val numBoleta: String = "",
+    @SerializedName("id_estado") val idEstado: Int = 2
 ) {
     fun toEntity() = RetiroMuestraEntity(
-        id = id, idMuestra = idMuestra, runMuestreador = runMuestreador,
-        fechaProgramada = fechaProgramada, cardFName = cardFName,
-        address = address, county = county, nombreMaterial = nombreMaterial
+        idMuestra = idMuestra, runMuestreador = idMuestreador,
+        fechaProgramada = fechaMuestreo, cardFName = nombreObra,
+        address = direccion, county = "", nombreMaterial = nombreProbeta,
+        numBoleta = numBoleta, idEstado = idEstado
     )
 }

@@ -51,6 +51,10 @@ class RetirarMuestraFragment : Fragment() {
         binding.imgFoto.setOnClickListener { launchCamera() }
 
         binding.btnConfirmarRetiro.setOnClickListener {
+            if (photoUri == null) {
+                Snackbar.make(binding.root, "Debe tomar una foto antes de confirmar el retiro", Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             viewModel.retirarMuestra(
                 idMuestra    = args.idMuestra,
                 pathFoto     = photoUri?.path ?: "",
@@ -58,13 +62,26 @@ class RetirarMuestraFragment : Fragment() {
             )
         }
 
+        viewModel.checkYaRetirada(args.idMuestra)
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.retirado.collect { ok ->
-                    if (ok) {
-                        Snackbar.make(binding.root, "Muestra retirada", Snackbar.LENGTH_SHORT).show()
-                        findNavController().popBackStack()
-                        viewModel.resetRetiro()
+                launch {
+                    viewModel.yaRetirada.collect { yaRetirada ->
+                        if (yaRetirada) {
+                            binding.btnConfirmarRetiro.isEnabled = false
+                            binding.btnConfirmarRetiro.text = "Muestra ya retirada"
+                            Snackbar.make(binding.root, "Esta muestra ya fue retirada", Snackbar.LENGTH_LONG).show()
+                        }
+                    }
+                }
+                launch {
+                    viewModel.retirado.collect { ok ->
+                        if (ok) {
+                            Snackbar.make(binding.root, "Muestra retirada", Snackbar.LENGTH_SHORT).show()
+                            findNavController().popBackStack()
+                            viewModel.resetRetiro()
+                        }
                     }
                 }
             }

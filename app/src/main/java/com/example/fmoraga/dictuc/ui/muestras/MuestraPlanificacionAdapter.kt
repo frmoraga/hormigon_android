@@ -21,13 +21,14 @@ class MuestraPlanificacionAdapter(
             binding.txtDireccion.text = "${item.address}, ${item.county}"
             binding.txtMaterial.text  = item.nombreMaterial
             binding.txtProbeta.text   = "Probetas: ${item.totalProbeta} | Edad: ${item.edadProbeta}"
+            binding.txtIdMuestra.text = "#${item.idMuestra}"
 
             when (item.estado) {
-                1 -> {
-                    // Tomada
+                2 -> {
+                    // Tomada (servidor: id_estado=2)
                     val sincLabel = if (item.enviado) "  ·  Sincronizada ✓" else "  ·  Pendiente sincronización ↑"
                     binding.txtEstadoBarra.text            = "✓  MUESTRA TOMADA$sincLabel"
-                    binding.txtEstadoBarra.setBackgroundColor(
+                    binding.layoutEstadoBarra.setBackgroundColor(
                         if (item.enviado) Color.parseColor("#2E7D32") else Color.parseColor("#558B2F")
                     )
                     binding.root.strokeColor               = Color.parseColor("#2E7D32")
@@ -37,10 +38,10 @@ class MuestraPlanificacionAdapter(
                     binding.txtMaterial.alpha              = 0.55f
                     binding.txtProbeta.alpha               = 0.55f
                 }
-                2 -> {
-                    // Suspendida
+                3 -> {
+                    // Suspendida (servidor: id_estado=3)
                     binding.txtEstadoBarra.text            = "⚠  MUESTRA SUSPENDIDA"
-                    binding.txtEstadoBarra.setBackgroundColor(Color.parseColor("#E65100"))
+                    binding.layoutEstadoBarra.setBackgroundColor(Color.parseColor("#E65100"))
                     binding.root.strokeColor               = Color.parseColor("#E65100")
                     binding.root.setCardBackgroundColor(Color.parseColor("#FFF8E1"))
                     binding.txtCliente.alpha               = 1f
@@ -48,10 +49,10 @@ class MuestraPlanificacionAdapter(
                     binding.txtMaterial.alpha              = 1f
                     binding.txtProbeta.alpha               = 1f
                 }
-                3 -> {
-                    // Retirada
+                4 -> {
+                    // Retirada (servidor: id_estado=4)
                     binding.txtEstadoBarra.text            = "◼  MUESTRA RETIRADA"
-                    binding.txtEstadoBarra.setBackgroundColor(Color.parseColor("#546E7A"))
+                    binding.layoutEstadoBarra.setBackgroundColor(Color.parseColor("#546E7A"))
                     binding.root.strokeColor               = Color.parseColor("#546E7A")
                     binding.root.setCardBackgroundColor(Color.parseColor("#ECEFF1"))
                     binding.txtCliente.alpha               = 0.55f
@@ -60,9 +61,9 @@ class MuestraPlanificacionAdapter(
                     binding.txtProbeta.alpha               = 0.55f
                 }
                 else -> {
-                    // Pendiente
+                    // Pendiente (servidor: id_estado=1 u otro)
                     binding.txtEstadoBarra.text            = "●  PENDIENTE"
-                    binding.txtEstadoBarra.setBackgroundColor(Color.parseColor("#1565C0"))
+                    binding.layoutEstadoBarra.setBackgroundColor(Color.parseColor("#1565C0"))
                     binding.root.strokeColor               = Color.parseColor("#1565C0")
                     binding.root.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
                     binding.txtCliente.alpha               = 1f

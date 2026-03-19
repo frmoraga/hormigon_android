@@ -23,10 +23,13 @@ class DictucApp : Application(), Configuration.Provider {
     }
 
     private fun scheduleSync() {
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+        val wm = WorkManager.getInstance(this)
+        wm.enqueueUniquePeriodicWork(
             SyncWorker.WORK_NAME,
             ExistingPeriodicWorkPolicy.KEEP,
             SyncWorker.buildPeriodicRequest()
         )
+        // Sync inmediato al abrir la app
+        wm.enqueue(OneTimeWorkRequestBuilder<SyncWorker>().build())
     }
 }

@@ -107,19 +107,23 @@ data class RetiroMuestraEntity(
     @ColumnInfo(name = "card_fname") val cardFName: String,
     val address: String,
     val county: String,
-    @ColumnInfo(name = "nombre_material") val nombreMaterial: String
+    @ColumnInfo(name = "nombre_material") val nombreMaterial: String,
+    @ColumnInfo(name = "num_boleta") val numBoleta: String = "",
+    @ColumnInfo(name = "id_estado") val idEstado: Int = 2  // 2=pendiente retiro, 3=retirada
 ) {
     fun toDomain() = RetiroMuestra(
         id = id, idMuestra = idMuestra, runMuestreador = runMuestreador,
         fechaProgramada = fechaProgramada, cardFName = cardFName,
-        address = address, county = county, nombreMaterial = nombreMaterial
+        address = address, county = county, nombreMaterial = nombreMaterial,
+        numBoleta = numBoleta, idEstado = idEstado
     )
 
     companion object {
         fun fromDomain(rm: RetiroMuestra) = RetiroMuestraEntity(
             id = rm.id, idMuestra = rm.idMuestra, runMuestreador = rm.runMuestreador,
             fechaProgramada = rm.fechaProgramada, cardFName = rm.cardFName,
-            address = rm.address, county = rm.county, nombreMaterial = rm.nombreMaterial
+            address = rm.address, county = rm.county, nombreMaterial = rm.nombreMaterial,
+            numBoleta = rm.numBoleta, idEstado = rm.idEstado
         )
     }
 }

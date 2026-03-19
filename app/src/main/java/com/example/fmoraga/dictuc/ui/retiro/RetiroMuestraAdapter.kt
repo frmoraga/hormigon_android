@@ -17,8 +17,9 @@ class RetiroMuestraAdapter(
 
         fun bind(item: RetiroMuestra) {
             binding.txtCliente.text   = item.cardFName
-            binding.txtDireccion.text = "${item.address}, ${item.county}"
+            binding.txtDireccion.text = item.address
             binding.txtMaterial.text  = item.nombreMaterial
+            binding.txtBoleta.text    = if (item.numBoleta.isNotEmpty()) "Boleta: ${item.numBoleta}" else ""
             binding.txtFecha.text     = item.fechaProgramada
             binding.root.setOnClickListener { onClick(item) }
         }

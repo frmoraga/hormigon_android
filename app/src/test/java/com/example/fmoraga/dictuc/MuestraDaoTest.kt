@@ -98,13 +98,13 @@ class MuestraDaoTest {
     }
 
     @Test
-    fun `estado calculado es 1 cuando existe muestra tomada`() = runTest {
+    fun `estado calculado es 2 cuando existe muestra tomada`() = runTest {
         dao.insertPlanificacion(listOf(planificacion))
         dao.insertMuestraTomada(tomada(enviado = false))
 
         val row = dao.getPlanificacion(5L).first().first()
 
-        assertEquals(1, row.idEstado)
+        assertEquals(2, row.idEstado)  // 2=tomada en escala del servidor
     }
 
     // ─── Tests: getMuestrasSinEnviar ──────────────────────────────────────

@@ -56,7 +56,7 @@ interface SyncDao {
 
     // ─── Retiro muestra (asignaciones del servidor) ──────────────────────
 
-    @Query("SELECT * FROM retiro_muestra WHERE run_muestreador = :runMuestreador")
+    @Query("SELECT * FROM retiro_muestra WHERE run_muestreador = :runMuestreador AND id_estado != 3")
     fun getRetiros(runMuestreador: Long): Flow<List<RetiroMuestraEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

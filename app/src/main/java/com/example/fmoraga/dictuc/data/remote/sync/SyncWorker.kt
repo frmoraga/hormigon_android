@@ -39,8 +39,7 @@ class SyncWorker @AssistedInject constructor(
         repository.syncMuestreadoresFromServer()
         repository.syncPlanificacionFromServer(run)
 
-        val runMuestreador = if (idPerfil == 2L) 0L else idMuestreador
-        repository.syncRetirosFromServer(runMuestreador)
+        repository.syncRetirosFromServer(idMuestreador)
 
         // Enviar datos pendientes al servidor
         for (jl in repository.getJornadasPendientes()) {

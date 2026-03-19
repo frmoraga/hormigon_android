@@ -51,7 +51,7 @@ class DictucRepositoryImpl @Inject constructor(
 
     override suspend fun saveMuestraTomada(mt: MuestraTomada): Long {
         val id = muestraDao.insertMuestraTomada(MuestraTomadaEntity.fromDomain(mt))
-        muestraDao.updateEstadoPlanificacion(mt.idMuestra, 1)
+        muestraDao.updateEstadoPlanificacion(mt.idMuestra, 2)  // 2=tomada en escala del servidor
         return id
     }
 
@@ -71,7 +71,6 @@ class DictucRepositoryImpl @Inject constructor(
 
     override suspend fun saveMuestraRetirada(mr: MuestraRetirada): Long {
         val id = syncDao.insertMuestraRetirada(MuestraRetiradaEntity.fromDomain(mr))
-        muestraDao.updateEstadoPlanificacion(mr.idMuestra, 3)
         return id
     }
 
@@ -87,7 +86,7 @@ class DictucRepositoryImpl @Inject constructor(
 
     override suspend fun saveMuestraSuspendida(ms: MuestraSuspendida): Long {
         val id = syncDao.insertMuestraSuspendida(MuestraSuspendidaEntity.fromDomain(ms))
-        muestraDao.updateEstadoPlanificacion(ms.idMuestra, 2)
+        muestraDao.updateEstadoPlanificacion(ms.idMuestra, 3)  // 3=suspendida en escala del servidor
         return id
     }
 

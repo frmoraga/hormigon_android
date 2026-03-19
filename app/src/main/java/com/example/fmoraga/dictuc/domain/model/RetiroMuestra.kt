@@ -8,5 +8,7 @@ data class RetiroMuestra(
     val cardFName: String,
     val address: String,
     val county: String,
-    val nombreMaterial: String
+    val nombreMaterial: String,
+    val numBoleta: String = "",
+    val idEstado: Int = 2  // 2=pendiente retiro, 3=retirada
 )
