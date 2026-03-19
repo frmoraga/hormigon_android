@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TextView
+        android:id="@+id/txtDireccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Dirección"
+        android:layout_below="@+id/txtNumBoleta"
+        android:layout_marginTop="5dp"
+        android:textColor="#3d4d5f" />
+
+    <TextView
+        android:id="@+id/txtConstructora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="Constructora"
+        android:textColor="#56677a"
+        android:layout_below="@+id/txtDireccion"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/txtFechaElaboracion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="Fecha Elaboracion"
+        android:textColor="#56677a"
+        android:layout_below="@+id/txtConstructora"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/hr_muestreo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="#"
+        android:textColor="#FFF"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/round_id_muestra"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:id="@+id/txtNumBoleta"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:textSize="20dp"
+        android:text="Num Boleta"
+        android:textColor="#3d4d5f"
+        android:layout_alignTop="@+id/hr_muestreo"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/hr_muestreo" />
+</RelativeLayout >

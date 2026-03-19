@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollApp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_awesome_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:titleTextColor="#FFF"
+        android:subtitleTextColor="#FFF"
+        android:layout_marginBottom="10dp"
+        android:background="?attr/colorPrimary" />
+
+    <LinearLayout
+        android:layout_marginTop="60dp"
+        android:id="@+id/panelAgregarProbeta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Agregar Probeta:"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lblEspacio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text=""
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/round_buttom"
+            android:padding="5dp"
+            android:text="@string/icon_add"
+            android:textColor="#FFF"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_below="@id/panelAgregarProbeta">
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_text"
+                android:padding="8dp"
+                android:inputType="number"
+                android:id="@+id/txtBtnSelected"
+                android:text="1"
+                android:visibility="gone"
+                android:layout_marginTop="10dp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/panelDia01"
+            android:orientation="horizontal">
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:layout_height="45dp"
+                android:layout_gravity="left"
+                android:background="@drawable/input_text"
+                android:inputType="number"
+                android:id="@+id/txtCDia01"
+                android:hint="Nº Probetas"
+                android:padding="5dp"
+                android:layout_marginTop="10dp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:layout_height="45dp"
+                android:layout_gravity="right"
+                android:background="@drawable/input_text"
+                android:inputType="number"
+                android:id="@+id/txtDia01"
+                android:hint="Nº de Días"
+                android:padding="5dp"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/panelDia02"
+            android:visibility="gone"
+            android:layout_below="@+id/panelDia01"
+            android:orientation="horizontal">
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:layout_height="45dp"
+                android:layout_gravity="left"
+                android:background="@drawable/input_text"
+                android:inputType="number"
+                android:id="@+id/txtCDia02"
+                android:hint="Nº Probetas"
+                android:padding="5dp"
+                android:layout_marginTop="10dp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:layout_height="45dp"
+                android:layout_gravity="right"
+                android:background="@drawable/input_text"
+                android:inputType="number"
+                android:id="@+id/txtDia02"
+                android:hint="Nº de Días"
+                android:padding="5dp"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/panelDia03"
+            android:visibility="gone"
+            android:layout_below="@+id/panelDia02"
+            android:orientation="horizontal">
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:layout_height="45dp"
+                android:layout_gravity="left"
+                android:background="@drawable/input_text"
+                android:inputType="number"
+                android:id="@+id/txtCDia03"
+                android:hint="Nº Probetas"
+                android:padding="5dp"
+                android:layout_marginTop="10dp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:layout_height="45dp"
+                android:layout_gravity="right"
+                android:background="@drawable/input_text"
+                android:inputType="number"
+                android:id="@+id/txtDia03"
+                android:hint="Nº de Días"
+                android:padding="5dp"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/panelDia04"
+            android:visibility="gone"
+            android:layout_below="@+id/panelDia03"
+            android:orientation="horizontal">
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:layout_height="45dp"
+                android:layout_gravity="left"
+                android:background="@drawable/input_text"
+                android:inputType="number"
+                android:id="@+id/txtCDia04"
+                android:hint="Nº Probetas"
+                android:padding="5dp"
+                android:layout_marginTop="10dp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:layout_height="45dp"
+                android:layout_gravity="right"
+                android:background="@drawable/input_text"
+                android:inputType="number"
+                android:id="@+id/txtDia04"
+                android:hint="Nº de Días"
+                android:padding="5dp"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/panelDia05"
+            android:visibility="gone"
+            android:layout_below="@+id/panelDia04"
+            android:orientation="horizontal">
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:layout_height="45dp"
+                android:layout_gravity="left"
+                android:background="@drawable/input_text"
+                android:inputType="number"
+                android:id="@+id/txtCDia05"
+                android:hint="Nº Probetas"
+                android:padding="5dp"
+                android:layout_marginTop="10dp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:layout_height="45dp"
+                android:layout_gravity="right"
+                android:background="@drawable/input_text"
+                android:inputType="number"
+                android:id="@+id/txtDia05"
+                android:hint="Nº de Días"
+                android:padding="5dp"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+
+        <Button
+            android:text="Guardar"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:layout_below="@+id/panelDia05"
+            android:id="@+id/btnGuardar"
+            android:background="@drawable/round_buttom"
+            android:textColor="#FFF"
+            android:layout_width="fill_parent"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

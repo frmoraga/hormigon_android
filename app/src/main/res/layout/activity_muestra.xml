@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_awesome_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:titleTextColor="#FFF"
+        android:subtitleTextColor="#FFF"
+        android:layout_marginBottom="10dp"
+        android:background="?attr/colorPrimary" />
+
+    <ScrollView
+        android:id="@+id/lala"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="60dp">
+
+        <RelativeLayout
+            android:id="@+id/RLayout02"
+            android:padding="8dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:text="@string/icon_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/icon_info"
+                android:textSize="27sp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:textStyle="normal|bold" />
+            <TextView
+                android:text="Información"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_muestra"
+                android:textSize="27sp"
+                android:layout_toRightOf="@id/icon_info"
+                android:textStyle="normal|bold" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/line0"
+                android:layout_below="@id/id_muestra"
+                android:background="#d7e0f1"/>
+
+            <TextView
+                android:text="@string/icon_obra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/icon_obra"
+                android:textSize="18sp"
+                android:background="@drawable/round_listview"
+                android:padding="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_below="@id/line0"
+                android:textStyle="normal|bold" />
+            <TextView
+                android:text="Obra: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                android:layout_toRightOf="@id/icon_obra"
+                android:textSize="20sp"
+                android:layout_below="@id/line0"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="nombreOba"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nombreObra"
+                android:layout_toRightOf="@id/textView3"
+                android:layout_below="@id/line0"
+                android:layout_alignParentRight="true"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:id="@+id/line1"
+                android:layout_below="@id/nombreObra"
+                android:background="#d7e0f1"/>
+
+            <TextView
+                android:text="@string/icon_dir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/icon_dir"
+                android:textSize="18sp"
+                android:background="@drawable/round_listview"
+                android:padding="5dp"
+                android:layout_below="@id/line1"
+                android:layout_marginRight="5dp"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="Dirección: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView5"
+                android:textSize="20sp"
+                android:layout_below="@id/line1"
+                android:layout_toRightOf="@id/icon_dir"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="direccionObra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/direccionObra"
+                android:layout_toRightOf="@id/textView5"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/line1"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:id="@+id/line2"
+                android:layout_below="@id/direccionObra"
+                android:background="#d7e0f1"/>
+
+            <TextView
+                android:text="@string/icon_desig"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/icon_desig"
+                android:textSize="18sp"
+                android:background="@drawable/round_listview"
+                android:layout_marginRight="5dp"
+                android:padding="5dp"
+                android:layout_below="@id/line2"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="Designación: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:textSize="20sp"
+                android:layout_below="@id/line2"
+                android:layout_toRightOf="@id/icon_desig"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="designacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/designacion"
+                android:layout_toRightOf="@id/textView2"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/line2"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:id="@+id/line3"
+                android:layout_below="@id/designacion"
+                android:background="#d7e0f1"/>
+
+            <TextView
+                android:text="@string/icon_probeta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/icon_probeta"
+                android:textSize="18sp"
+                android:background="@drawable/round_listview"
+                android:padding="5dp"
+                android:layout_below="@id/line3"
+                android:layout_marginRight="5dp"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="Probeta: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView10"
+                android:layout_below="@id/line3"
+                android:layout_toRightOf="@id/icon_probeta"
+                android:textSize="20sp"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="probeta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/probeta"
+                android:layout_toEndOf="@id/textView10"
+                android:layout_toRightOf="@id/designacion"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/line3"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:id="@+id/line4"
+                android:layout_below="@id/probeta"
+                android:background="#d7e0f1"/>
+
+            <TextView
+                android:text="@string/icon_comuna"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/icon_comuna"
+                android:textSize="18sp"
+                android:background="@drawable/round_listview"
+                android:padding="5dp"
+                android:layout_below="@id/line4"
+                android:layout_marginRight="5dp"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="Comuna: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView8"
+                android:layout_below="@id/line4"
+                android:textSize="20sp"
+                android:layout_toRightOf="@id/icon_comuna"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="comunaObra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_vertical"
+                android:id="@+id/comunaObra"
+                android:layout_toRightOf="@id/textView8"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/line4"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:id="@+id/line5"
+                android:layout_below="@id/comunaObra"
+                android:background="#d7e0f1"/>
+
+            <TextView
+                android:text="@string/icon_material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/icon_material"
+                android:textSize="18sp"
+                android:background="@drawable/round_listview"
+                android:padding="5dp"
+                android:layout_below="@id/line5"
+                android:layout_marginRight="5dp"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="Material: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView9"
+                android:layout_below="@id/line5"
+                android:textSize="20sp"
+                android:layout_toRightOf="@id/icon_comuna"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_vertical"
+                android:id="@+id/material"
+                android:layout_toRightOf="@id/textView8"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/line5"
+                android:textSize="20sp" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:id="@+id/line6"
+                android:layout_below="@id/material"
+                android:background="#d7e0f1"/>
+
+            <Button
+                android:text="Aceptar"
+                android:scaleType="fitCenter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line6"
+                android:background="@drawable/round_buttom"
+                android:textColor="#FFF"
+                android:id="@+id/btnAceptar" />
+
+            <Button
+                android:text="Duplicar"
+                android:visibility="gone"
+                android:scaleType="fitCenter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_buttom"
+                android:layout_below="@+id/btnAceptar"
+                android:textColor="#FFF"
+                android:id="@+id/btnDuplicar" />
+
+            <RelativeLayout
+                android:id="@+id/panelAnular"
+                android:padding="8dp"
+                android:layout_marginTop="50dp"
+                android:layout_below="@+id/btnDuplicar"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <Button
+                    android:text="Agregar Probeta"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_buttom_info"
+                    android:textColor="#FFF"
+                    android:id="@+id/btnAgregarProbeta" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:id="@+id/line7"
+                    android:layout_below="@id/btnAgregarProbeta"
+                    android:background="#d7e0f1"/>
+
+                <Button
+                    android:text="Suspender"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_warning"
+                    android:textColor="#FFF"
+                    android:layout_below="@id/line7"
+                    android:id="@+id/btnSuspender" />
+                <Button
+                    android:text="Duplicar Muestra"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_warning"
+                    android:textColor="#FFF"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/btnDuplicarMuestra"
+                    android:layout_below="@+id/btnSuspender"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+</RelativeLayout>

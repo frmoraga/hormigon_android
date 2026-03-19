@@ -1,0 +1,177 @@
+<resources>
+    <string name="app_name">DICTUC Hormigón</string>
+    <string name="action_settings">Settings</string>
+    <string name="icon_user">&#xf2be;</string>
+    <string name="icon_probeta">&#xf0c3;</string>
+    <string name="icon_probeta_muestra">&#xf0c3; Muestreo</string>
+    <string name="icon_camion_retiro">&#xf0d1; Retiro</string>
+    <string name="icon_obra">&#xf1ad;</string>
+    <string name="icon_dir">&#xf01b;</string>
+    <string name="icon_desig">&#xf121;</string>
+    <string name="icon_comuna">&#xf041;</string>
+    <string name="icon_material">&#xf0f7;</string>
+    <string name="icon_info">&#xf05a;</string>
+    <string name="icon_colocacion">&#xf13a;</string>
+    <string name="icon_add">&#xf055;</string>
+    <string name="icon_pencil">Firma Mixero &#xf040;</string>
+    <string name="icon_pencil2">Firmar Jefe de Obra &#xf040;</string>
+    <string name="country_prompt">Elija una opción</string>
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
+    <string name="icon_calendario">&#xf073;</string>
+    <string name="icon_camara1">Fotografía Probetas &#xf030;</string>
+    <string name="icon_camara2">Fotografía Camión &#xf030;</string>
+    <string name="icon_camara3">Fotografía Cono &#xf030;</string>
+    <string name="icon_camara4">Fotografía Guía &#xf030;</string>
+    <string name="hello">Firmar Muestra</string>
+    <string name="external_dir">GetSignature</string>
+    <string-array name="array_colocacion">
+        <item>- Ninguna</item>
+        <item>Cimiento</item>
+        <item>Losa</item>
+        <item>Pilar</item>
+        <item>Muro o Machón</item>
+        <item>Viga</item>
+        <item>Pavimento</item>
+        <item>Otra opción</item>
+    </string-array>
+
+    <string-array name="array_cimiento">
+        <item>- Ninguna</item>
+        <item>Fundación en eje XXX, entre ejes YYY - ZZZ</item>
+        <item>Fundación en eje XXX con eje YYY</item>
+        <item>Cimiento en eje XXX, entre ejes YYY - ZZZ</item>
+        <item>Sobrecimiento en eje XXX, entre ejes YYY - ZZZ</item>
+        <item>Losa de fundación entre ejes XXX - YYY y ejes AAA - BBB</item>
+    </string-array>
+
+    <string-array name="array_losa">
+        <item>- Ninguna</item>
+        <item>Losa cielo piso XXX, entre ejes YYY - ZZZ y ejes AAA - BBB</item>
+        <item>Losa cielo subterráneo XXX, entre ejes YYY - ZZZ y ejes AAA - BBB</item>
+    </string-array>
+
+    <string-array name="array_pilar">
+        <item>- Ninguna</item>
+        <item>Pilar en piso AAA, en eje XXX con eje YYY</item>
+        <item>Pilote en eje AAA con eje XXX</item>
+        <item>Pilar en eje AAA con eje ZZZ</item>
+    </string-array>
+
+    <string-array name="array_muro">
+        <item>- Ninguna</item>
+        <item>Muro en piso XXX, entre ejes XXX - YYY y ejes AAA - BBB</item>
+        <item>Machón en piso XXX, en eje AAA, entre ejes YYY - ZZZ</item>
+        <item>Muro en subterráneo XXX, entre ejes XXX - AAA y ejes AAA - BBB</item>
+        <item>Machón en subterráneo XXX, en eje AAA, entre ejes YYY - ZZZ</item>
+    </string-array>
+
+    <string-array name="array_viga">
+        <item>- Ninguna</item>
+        <item>Viga en piso AAA, en eje BBB, entre ejes XXX - YYY</item>
+        <item>Viga invertida en piso AAA, en eje BBB, entre ejes XXX - YYY</item>
+        <item>Viga pretensada en piso AAA, en eje BBB, entre ejes XXX - YYY</item>
+    </string-array>
+
+    <string-array name="array_pavimento">
+        <item>- Ninguna</item>
+        <item>Pavimento entre ejes XXX - YYY y ejes AAA - BBB</item>
+        <item>Radier entre ejes XXX - YYY y ejes AAA - BBB</item>
+        <item>Calzada en calle AAA, faja aaa de oriente a poniente frente a N° BBB</item>
+        <item>Calzada en calle AAA, costado norte, sur, oriente, poniente, pista N° BBB PK CCC</item>
+        <item>Acera norte, sur, este, oeste, en calle, avenida AAA, frente al N° BBB</item>
+    </string-array>
+
+    <string-array name="array_materialMarca">
+        <item>- Marca</item>
+        <item>Marca 1</item>
+        <item>Marca 2</item>
+        <item>Marca 3</item>
+    </string-array>
+
+    <string-array name="array_materialTipo">
+        <item>- Tipo</item>
+        <item>Tipo 1</item>
+        <item>Tipo 2</item>
+        <item>Tipo 3</item>
+    </string-array>
+
+    <string-array name="array_compactacionObra">
+        <item>- Tipo de Compactación</item>
+        <item>Vibrado</item>
+        <item>Compactado</item>
+        <item>Autocompactante</item>
+        <item>Vibrado Externo</item>
+        <item>Vibrado Interno (mesa)</item>
+    </string-array>
+
+    <string-array name="array_colocacionObra">
+        <item>- Tipo de Colocación</item>
+        <item>Bomba</item>
+        <item>Capacho</item>
+        <item>Carretilla</item>
+        <item>Vaciado Directo</item>
+        <item>Cargador Frontal</item>
+        <item>Cinta</item>
+        <item>Pala Mecánica</item>
+        <item>Batea</item>
+    </string-array>
+
+    <string-array name="array_curado">
+        <item>- Muestra curado </item>
+        <item>En obra con pilietileno</item>
+        <item>Bajo agua</item>
+        <item>Membrana</item>
+        <item>Arena</item>
+        <item>Arpillera</item>
+        <item>Plástico alveolar más fibra de poliéster</item>
+        <item>Caja de madera con poliestireno más plástico alveolar</item>
+        <item>Caja de poliuretano con agua </item>
+        <item>Ninguna</item>
+    </string-array>
+
+    <!-- Arrays faltantes para TomaMuestraFragment -->
+    <string-array name="array_tipo_hormigon">
+        <item>- Tipo de Hormigón</item>
+        <item>Premezclado</item>
+        <item>Fabricado en Obra</item>
+        <item>Prefabricado</item>
+        <item>Proyectado</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="array_material">
+        <item>- Material</item>
+        <item>Cemento Portland</item>
+        <item>Cemento con puzolana</item>
+        <item>Cemento con escoria</item>
+        <item>Cemento de alta resistencia</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="array_preparado_obra">
+        <item>- Preparado en</item>
+        <item>Planta hormigonera</item>
+        <item>En obra</item>
+        <item>Prefabricado</item>
+    </string-array>
+
+    <string-array name="array_compactacion_probeta">
+        <item>- Compactación probeta</item>
+        <item>Varillado</item>
+        <item>Vibrado</item>
+        <item>Vibrado externo</item>
+        <item>Sin compactación</item>
+    </string-array>
+
+    <string-array name="array_tipo_probeta">
+        <item>- Tipo de Probeta </item>
+        <item>Cilindrica</item>
+        <item>Vigueta</item>
+        <item>Cubo de 20</item>
+        <item>Probeta Rilem</item>
+        <item>Cubo de 5 cm de Arista</item>
+        <item>Prismatica</item>
+        <item>Cubo de 15</item>
+    </string-array>
+</resources>

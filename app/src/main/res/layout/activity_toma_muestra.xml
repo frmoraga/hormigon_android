@@ -1,0 +1,1437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollApp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_awesome_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:subtitleTextColor="#FFF"
+            android:titleTextColor="#FFF" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/panelInfoMuestra"
+
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/txtDesignacion"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/input_text"
+            android:hint="Designación"
+            android:padding="8dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <Spinner
+            android:layout_width="fill_parent"
+            android:layout_marginTop="80dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_text"
+            android:entries="@array/array_tipo_probeta"
+            android:spinnerMode="dialog"
+            android:id="@+id/slcTipoProbeta"
+            android:layout_below="@+id/txtDesignacion"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
+        </Spinner>
+
+        <View
+            android:id="@+id/line14"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/slcTipoProbeta"
+            android:layout_margin="5dp"
+            android:background="#d7e0f1" />
+    </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/panelFechaElaboracion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/panelInfoMuestra">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Fecha Elaboración:"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblFechaElaboracion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text=""
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/btn_Calendario"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/round_buttom"
+                android:padding="5dp"
+                android:text="@string/icon_calendario"
+                android:textColor="#FFF"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/panelFechaElaboracion"
+            android:layout_margin="5dp"
+            android:background="#d7e0f1" />
+
+        <RelativeLayout
+            android:id="@+id/panelNumBoleta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line1">
+
+            <EditText
+                android:id="@+id/txtNumBoleta"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/input_text"
+                android:hint="Número de Boleta"
+                android:inputType="number"
+                android:padding="8dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line10"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/panelNumBoleta"
+            android:layout_margin="5dp"
+            android:background="#d7e0f1" />
+
+        <RelativeLayout
+            android:id="@+id/panelRadioHormigon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line10">
+
+            <TextView
+                android:id="@+id/lblHormigon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Hormigón:"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/radioGrpHormigon"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblHormigon"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioPavimento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Pavimento" />
+
+                <RadioButton
+                    android:id="@+id/radioNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Normal" />
+
+                <RadioButton
+                    android:id="@+id/radioBombeable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bombeable" />
+
+                <RadioButton
+                    android:id="@+id/radioOtro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Otro" />
+
+            </RadioGroup>
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/txtOtraOpcion"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/panelRadioHormigon"
+            android:layout_margin="10dp"
+            android:background="@drawable/input_text"
+            android:hint="Ingrese otra opción"
+            android:padding="6dp"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/txtOtraOpcion"
+            android:layout_margin="5dp"
+            android:background="#d7e0f1" />
+
+        <RelativeLayout
+            android:id="@+id/panelMaterial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line2">
+
+            <TextView
+                android:id="@+id/lblMaterial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Material:"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/radioGrpMaterial"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblMaterial"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioPremezclado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Premezclado" />
+
+                <RadioButton
+                    android:id="@+id/radioPreparadoObra"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Preparado Obra" />
+
+                <RadioButton
+                    android:id="@+id/radioPredosificado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Predosificado" />
+
+            </RadioGroup>
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line3"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/panelMaterial"
+            android:layout_margin="5dp"
+            android:background="#d7e0f1" />
+
+        <RelativeLayout
+            android:id="@+id/panelMaterialBoth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line3">
+
+            <LinearLayout
+
+                android:id="@+id/panelPremezclado"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/txtMaterialMarca"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/input_text"
+                    android:hint="Marca"
+                    android:padding="8dp" />
+
+                <EditText
+                    android:id="@+id/txtNumCamion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/input_text"
+                    android:hint="Camion Nº"
+                    android:inputType="number"
+                    android:padding="8dp" />
+
+                <EditText
+                    android:id="@+id/txtNumGuia"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/input_text"
+                    android:hint="Guía Nº"
+                    android:inputType="number"
+                    android:padding="8dp" />
+
+                <EditText
+                    android:id="@+id/txtPlanta"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtNumGuia"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/input_text"
+                    android:hint="Planta"
+                    android:padding="8dp" />
+
+                <View
+                    android:id="@+id/line4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/txtPlanta"
+                    android:layout_margin="5dp"
+                    android:background="#d7e0f1" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/panelPreparadoObra"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/lblPreparadoObra"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Preparado en Obra:"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/radioGrpPreparadoObra"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblPreparadoObra"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioMaquina"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Máquina" />
+
+                    <RadioButton
+                        android:id="@+id/radioPala"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pala" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/lblDosificacionDeclarada"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/radioGrpPreparadoObra"
+                    android:layout_margin="5dp"
+                    android:text="Dosificación Declarada:"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/txtDosificacionDeclarada"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblDosificacionDeclarada"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/input_text"
+                    android:hint="kg/m³ de Cemento"
+                    android:inputType="numberDecimal"
+                    android:padding="8dp" />
+
+                <EditText
+                    android:id="@+id/txtDosificacionMarca"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtDosificacionDeclarada"
+                    android:layout_margin="5dp"
+                    android:padding="8dp"
+                    android:hint="Marca"
+                    android:background="@drawable/input_text" />
+
+                <EditText
+                    android:id="@+id/txtDosificacionTipo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtDosificacionMarca"
+                    android:layout_margin="5dp"
+                    android:padding="8dp"
+                    android:hint="Tipo"
+                    android:background="@drawable/input_text" />
+
+                <TextView
+                    android:id="@+id/lblProcedenciaArena"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtDosificacionTipo"
+                    android:layout_margin="5dp"
+                    android:text="Procedencia Áridos:"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/txtProcedenciaArena"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblProcedenciaArena"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/input_text"
+                    android:hint="Arena"
+                    android:inputType="text"
+                    android:padding="8dp" />
+
+                <EditText
+                    android:id="@+id/txtProcedenciaGravilla"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtProcedenciaArena"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/input_text"
+                    android:hint="Gravilla"
+                    android:inputType="text"
+                    android:padding="8dp" />
+
+                <EditText
+                    android:id="@+id/txtProcedenciaGrava"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtProcedenciaGravilla"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/input_text"
+                    android:hint="Grava"
+                    android:inputType="text"
+                    android:padding="8dp" />
+
+                <TextView
+                    android:id="@+id/lblAditivoObra"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtProcedenciaGrava"
+                    android:layout_margin="5dp"
+                    android:text="Aditivo en Obra:"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/radioGrpAditivoObra"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblAditivoObra"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioAditivoSi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Si" />
+
+                    <RadioButton
+                        android:id="@+id/radioAditivoNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="No" />
+                </RadioGroup>
+
+                <RelativeLayout
+                    android:id="@+id/panelAditivoObra"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/radioGrpAditivoObra"
+                    android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/txtPrepardoObraMarca"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:padding="8dp"
+                        android:hint="Marca"
+                        android:background="@drawable/input_text" />
+
+                    <EditText
+                        android:id="@+id/txtAditivoTipo"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtPrepardoObraMarca"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/input_text"
+                        android:hint="Tipo"
+                        android:inputType="text"
+                        android:padding="8dp" />
+
+                    <EditText
+                        android:id="@+id/txtAditivoCantidad"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtAditivoTipo"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/input_text"
+                        android:hint="Cantidad"
+                        android:inputType="number"
+                        android:padding="8dp" />
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/line5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/radioGrpAditivoObra"
+                    android:layout_margin="5dp"
+                    android:background="#d7e0f1" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/panelHora"
+            android:layout_below="@+id/panelMaterialBoth">
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtHoraLlegada"
+                android:padding="8dp"
+                android:focusable="false"
+                android:background="@drawable/input_text"
+                android:hint="Hora Llegada"
+                android:layout_margin="5dp"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtHoraMuestreo"
+                android:layout_below="@+id/txtHoraLlegada"
+                android:padding="8dp"
+                android:focusable="false"
+                android:background="@drawable/input_text"
+                android:hint="Hora Muestreo"
+                android:layout_margin="5dp"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtHoraSalidaObra"
+                android:layout_below="@+id/txtHoraMuestreo"
+                android:padding="8dp"
+                android:focusable="false"
+                android:background="@drawable/input_text"
+                android:hint="Hora Salida de Obra"
+                android:layout_margin="5dp"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtHoraSalidaPlanta"
+                android:layout_below="@+id/txtHoraSalidaObra"
+                android:padding="8dp"
+                android:focusable="false"
+                android:background="@drawable/input_text"
+                android:hint="Hora Salida de Planta"
+                android:layout_margin="5dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/panelEmpleadoEn"
+            android:layout_below="@+id/panelHora">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Empleado en: "
+                android:textSize="18dp"
+                android:id="@+id/lblEmpleadoEn"
+                android:textStyle="bold"
+                android:layout_margin="5dp"/>
+
+            <View
+                android:id="@+id/line11"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/lblEmpleadoEn"
+                android:layout_margin="5dp"
+                android:background="#d7e0f1" />
+
+            <Spinner
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/input_text"
+                android:entries="@array/array_colocacion"
+                android:spinnerMode="dialog"
+                android:layout_below="@id/lblEmpleadoEn"
+                android:id="@+id/slcEmpleadoElemento">
+            </Spinner>
+
+            <Spinner
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/input_text"
+                android:visibility="gone"
+                android:spinnerMode="dialog"
+                android:layout_below="@id/slcEmpleadoElemento"
+                android:id="@+id/slcEmpleadoDescripcion">
+            </Spinner>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/slcEmpleadoDescripcion"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:id="@+id/txtEmpleadoElemento"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtEmpleadoElemento"
+                android:id="@+id/txtX"
+                android:padding="8dp"
+                android:background="@drawable/input_text"
+                android:hint="XXX"
+                android:visibility="gone"
+                android:layout_margin="5dp"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtX"
+                android:id="@+id/txtY"
+                android:padding="8dp"
+                android:background="@drawable/input_text"
+                android:hint="YYY"
+                android:visibility="gone"
+                android:layout_margin="5dp"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtY"
+                android:id="@+id/txtZ"
+                android:padding="8dp"
+                android:background="@drawable/input_text"
+                android:hint="ZZZ"
+                android:visibility="gone"
+                android:layout_margin="5dp"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtZ"
+                android:id="@+id/txtA"
+                android:padding="8dp"
+                android:background="@drawable/input_text"
+                android:hint="AAA"
+                android:visibility="gone"
+                android:layout_margin="5dp"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtA"
+                android:id="@+id/txtB"
+                android:padding="8dp"
+                android:background="@drawable/input_text"
+                android:hint="BBB"
+                android:visibility="gone"
+                android:layout_margin="5dp"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtB"
+                android:background="@drawable/input_text"
+                android:id="@+id/txtOtraOpcionEmpleado"
+                android:padding="8dp"
+                android:hint="Otra opción"
+                android:visibility="gone"
+                android:layout_margin="5dp"/>
+
+            <View
+                android:id="@+id/line12"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/txtB"
+                android:layout_margin="5dp"
+                android:background="#d7e0f1" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/panelColocacionObra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/panelEmpleadoEn">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:id="@+id/txtCondicionObra"
+                android:text="Condición en Obra:"/>
+
+            <Spinner
+                android:id="@+id/slcCompactacionObra"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/txtCondicionObra"
+                android:layout_margin="5dp"
+                android:background="@drawable/input_text"
+                android:entries="@array/array_compactacionObra"
+                android:spinnerMode="dialog"></Spinner>
+
+            <Spinner
+                android:id="@+id/slcColocacionObra"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/slcCompactacionObra"
+                android:layout_margin="5dp"
+                android:background="@drawable/input_text"
+                android:entries="@array/array_colocacionObra"
+                android:spinnerMode="dialog"></Spinner>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/panelCompactacionProbeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/panelColocacionObra">
+
+            <TextView
+                android:id="@+id/txtCompactacionProbeta"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Compatación Probeta:"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/radioGrpCompactacionProbeta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtCompactacionProbeta"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioApisonada"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Apisonada" />
+
+                <RadioButton
+                    android:id="@+id/radioVibrada"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vibrada" />
+
+                <RadioButton
+                    android:id="@+id/radioSacudida"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sacudida" />
+            </RadioGroup>
+
+            <View
+                android:id="@+id/line6"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/txtVibradorN"
+                android:layout_margin="5dp"
+                android:background="#d7e0f1" />
+
+            <EditText
+                android:id="@+id/txtVibradorN"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_text"
+                android:hint="Vibrador Nº"
+                android:padding="8dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:inputType="number"
+                android:visibility="gone"
+                android:layout_below="@+id/radioGrpCompactacionProbeta"
+                android:layout_alignEnd="@+id/line6" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/panelCompactacionProbeta"
+            android:id="@+id/panelEnsayo" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Ensayo:"
+                android:textSize="18dp"
+                android:id="@+id/lblTipoEnsayo"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/radioGrpEnsayo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblTipoEnsayo"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/radioTipoEnsayoCompactacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Compresión" />
+
+                <CheckBox
+                    android:id="@+id/radioTipoEnsayoFlexotraccion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Flexotración" />
+
+                <CheckBox
+                    android:id="@+id/radioTipoEnsayoHendimiento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hendimiento" />
+            </RadioGroup>
+
+            <View
+                android:id="@+id/line7"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/radioGrpEnsayo"
+                android:layout_margin="5dp"
+                android:background="#d7e0f1" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/panelDensidadFresca"
+            android:visibility="gone"
+            android:layout_below="@+id/panelCono">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lblDensidadFresca"
+                android:text="Densidad Fresca:"
+                android:textSize="18dp"
+                android:layout_margin="5dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_text"
+                android:padding="8dp"
+                android:id="@+id/txtDensidadFrescaVolumen"
+                android:inputType="numberDecimal"
+                android:layout_below="@+id/txtDensidadFrescaKg"
+                android:layout_margin="5dp"
+                android:hint="Volumen Recipiente (L)" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_text"
+                android:padding="8dp"
+                android:id="@+id/txtDensidadFrescaRecipienteMaterial"
+                android:inputType="numberDecimal"
+                android:layout_below="@+id/txtDensidadFrescaVolumen"
+                android:layout_margin="5dp"
+                android:hint="Peso Recipiente + Material (Kg)" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_text"
+                android:padding="8dp"
+                android:id="@+id/txtDensidadFrescaEquipo"
+                android:visibility="gone"
+                android:inputType="number"
+                android:layout_below="@+id/txtDensidadFrescaRecipienteMaterial"
+                android:layout_margin="5dp"
+                android:hint="Equipo" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_text"
+                android:padding="8dp"
+                android:id="@+id/txtDensidadFrescaPesoRecipiente"
+                android:inputType="number"
+                android:layout_below="@+id/txtDensidadFrescaEquipo"
+                android:layout_margin="5dp"
+                android:hint="Peso Recipiente (Kg)" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_text"
+                android:padding="8dp"
+                android:id="@+id/txtDensidadFrescaPesoMaterial"
+                android:inputType="number"
+                android:layout_below="@+id/txtDensidadFrescaPesoRecipiente"
+                android:layout_margin="5dp"
+                android:hint="Peso Material (Kg)" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_text"
+                android:padding="8dp"
+                android:id="@+id/txtDensidadFrescaKg"
+                android:inputType="numberDecimal"
+                android:hint="Kg/m³"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/lblDensidadFresca" />
+
+            <View
+                android:id="@+id/line9"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/txtDensidadFrescaPesoMaterial"
+                android:layout_margin="5dp"
+                android:background="#d7e0f1" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/panelContenidoAire"
+            android:visibility="gone"
+            android:layout_below="@+id/panelDensidadFresca">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lblContenidoAire"
+                android:text="Contenido de Aire:"
+                android:textSize="18dp"
+                android:layout_margin="5dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_text"
+                android:padding="8dp"
+                android:id="@+id/txtContenidoAire"
+                android:layout_below="@+id/lblContenidoAire"
+                android:inputType="numberDecimal"
+                android:layout_margin="5dp"
+                android:hint="Contenido de Aire (%)" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_text"
+                android:padding="8dp"
+                android:id="@+id/txtContenidoAireEquipo"
+                android:visibility="gone"
+                android:layout_below="@+id/txtContenidoAire"
+                android:layout_margin="5dp"
+                android:inputType="number"
+                android:hint="Equipo" />
+
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/panelOtraInformacion"
+        android:layout_below="@+id/panelContenidoAire">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblOtraInformacion"
+            android:text="Información Adicional:"
+            android:textSize="18dp"
+            android:layout_margin="5dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_text"
+            android:padding="8dp"
+            android:id="@+id/txtMetrosCubicos"
+            android:layout_below="@+id/lblOtraInformacion"
+            android:layout_margin="5dp"
+            android:inputType="numberDecimal"
+            android:hint="Metros Cúbicos" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_text"
+            android:padding="8dp"
+            android:id="@+id/txtPatente"
+            android:layout_below="@+id/txtMetrosCubicos"
+            android:layout_margin="5dp"
+            android:hint="Patente" />
+
+        <Spinner
+            android:id="@+id/slcCurado"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/txtPatente"
+            android:layout_margin="5dp"
+            android:background="@drawable/input_text"
+            android:entries="@array/array_curado"
+            android:spinnerMode="dialog"></Spinner>
+
+        <View
+            android:id="@+id/line13"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:layout_below="@id/slcCurado"
+            android:background="#d7e0f1" />
+
+        </RelativeLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:id="@+id/panelObservaciones"
+            android:layout_below="@+id/panelOtraInformacion"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Observaciones"
+                android:textSize="20sp"
+                android:layout_margin="5dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txtObservacion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/input_text"
+                android:inputType="textMultiLine"
+                android:lines="8"
+                android:minLines="6"
+                android:maxLines="10" />
+
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:id="@+id/panelTomarFoto"
+            android:layout_below="@+id/panelObservaciones"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Tomar Fotografía"
+                android:textSize="20sp"
+                android:layout_margin="5dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:text="@string/icon_camara1"
+                android:id="@+id/btnTomarFoto1"
+                android:background="@drawable/round_buttom_info"
+                android:textColor="#FFF"
+                android:layout_width="fill_parent"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:text="@string/icon_camara2"
+                android:id="@+id/btnTomarFoto2"
+                android:background="@drawable/round_buttom_info"
+                android:textColor="#FFF"
+                android:layout_width="fill_parent"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:text="@string/icon_camara3"
+                android:id="@+id/btnTomarFoto3"
+                android:background="@drawable/round_buttom_info"
+                android:textColor="#FFF"
+                android:layout_width="fill_parent"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:text="@string/icon_camara4"
+                android:id="@+id/btnTomarFoto4"
+                android:background="@drawable/round_buttom_info"
+                android:textColor="#FFF"
+                android:layout_width="fill_parent"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:layout_height="wrap_content" />
+
+            <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/GridLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                android:columnCount="2"
+                android:rowCount="2"
+                android:orientation="horizontal"
+                tools:context="com.inducesmile.gridlayouttutorial.MainActivity" >
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:id="@+id/imgFoto1"/>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:id="@+id/imgFoto2"/>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:id="@+id/imgFoto3"/>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:id="@+id/imgFoto4"/>
+            </GridLayout>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtPathFotografia1"
+                android:visibility="gone"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtPathFotografia2"
+                android:visibility="gone"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtPathFotografia3"
+                android:visibility="gone"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtPathFotografia4"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_below="@+id/panelTomarFoto"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hello"
+                android:textSize="20sp"
+                android:layout_margin="5dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:text="@string/icon_pencil"
+                android:id="@+id/signature"
+                android:background="@drawable/round_buttom_info"
+                android:textColor="#FFF"
+                android:layout_width="fill_parent"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:text="@string/icon_pencil2"
+                android:id="@+id/signature2"
+                android:background="@drawable/round_buttom_info"
+                android:textColor="#FFF"
+                android:layout_width="fill_parent"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:layout_height="wrap_content" />
+
+            <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtNombreMixero"
+            android:visibility="gone"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtEmailMixero"
+                android:visibility="gone"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtPathFirma"
+                android:visibility="gone"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtNombreMixero2"
+                android:visibility="gone"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtEmailMixero2"
+                android:visibility="gone"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtPathFirma2"
+                android:visibility="gone"/>
+
+            <Button
+                android:text="Terminar Muestra"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:id="@+id/btnTomarMuestra"
+                android:background="@drawable/round_buttom"
+                android:textColor="#FFF"
+                android:layout_width="fill_parent"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/panelCono"
+            android:layout_below="@+id/panelEnsayo"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lblCono"
+                android:text="Cono:"
+                android:textSize="18dp"
+                android:layout_margin="5dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblCono"
+                android:background="@drawable/input_text"
+                android:padding="8dp"
+                android:id="@+id/txtNumeroCono"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:inputType="numberDecimal"
+                android:layout_margin="5dp"
+                android:hint="Número"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtNumeroCono"
+                android:background="@drawable/input_text"
+                android:padding="8dp"
+                android:id="@+id/txtEquipoCono"
+                android:inputType="number"
+                android:layout_margin="5dp"
+                android:hint="Equipo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lblConoAspecto"
+                android:text="Aspecto:"
+                android:textSize="16dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/txtEquipoCono"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/radioGrpConoAspecto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblConoAspecto"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioTipoSeco"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Seco" />
+
+                <RadioButton
+                    android:id="@+id/radioTipoPlatico"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Plástico" />
+
+                <RadioButton
+                    android:id="@+id/radioTipoFluido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fluido" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lblConoTextura"
+                android:text="Textura:"
+                android:textSize="16dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/radioGrpConoAspecto"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/radioGrpConoTextura"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblConoTextura"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioTexturaNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Normal" />
+
+                <RadioButton
+                    android:id="@+id/radioTexturaRipioso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ripioso" />
+
+                <RadioButton
+                    android:id="@+id/radioTexturaArenoso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Arenoso" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lblConoTemperatura"
+                android:text="Temperatura:"
+                android:textSize="16dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/radioGrpConoTextura"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblConoTemperatura"
+                android:background="@drawable/input_text"
+                android:padding="8dp"
+                android:id="@+id/txtConoTempAmbiente"
+                android:layout_margin="5dp"
+                android:inputType="numberDecimal"
+                android:hint="Ambiente ºC" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtConoTempAmbiente"
+                android:background="@drawable/input_text"
+                android:padding="8dp"
+                android:id="@+id/txtConoEquipo"
+                android:visibility="gone"
+                android:inputType="number"
+                android:layout_margin="5dp"
+                android:hint="Equipo" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_text"
+                android:padding="8dp"
+                android:id="@+id/txtConoHormigon"
+                android:inputType="numberDecimal"
+                android:hint="Hormigón Cº"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/txtConoEquipo" />
+
+            <View
+                android:id="@+id/line8"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/txtConoHormigon"
+                android:layout_margin="5dp"
+                android:background="#d7e0f1" />
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

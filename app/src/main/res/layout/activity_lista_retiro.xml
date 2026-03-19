@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.fmoraga.dictuc.MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_awesome_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:titleTextColor="#FFF"
+        android:subtitleTextColor="#FFF"
+        android:layout_marginBottom="10dp"
+        android:background="?attr/colorPrimary" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/panelListaMuestra"
+        android:padding="8dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/icon_probeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_listview"
+            android:layout_marginTop="55dp"
+            android:textSize="27dp"
+            android:textStyle="bold"
+            android:text="@string/icon_probeta"
+            android:textColor="#2b4c70"
+            android:padding="5dp"
+            android:layout_alignParentTop="true" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="490dp"
+            android:drawSelectorOnTop="false"
+            android:id="@+id/listaRetiro"
+            android:layout_marginTop="110dp"
+            android:layout_below="@+id/direccion"
+            android:background="@drawable/round_listview"
+            android:layout_alignParentStart="true">
+        </ListView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:text="Lista de muestras para retiro"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignBaseline="@+id/icon_probeta"
+            android:layout_alignBottom="@+id/icon_probeta"
+            android:id="@+id/lblListaMuestra"
+            android:layout_toEndOf="@+id/icon_probeta" />
+    </RelativeLayout>
+</RelativeLayout>

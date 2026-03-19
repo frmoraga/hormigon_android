@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <!-- ─── Auth ─────────────────────────────────────────────────────────── -->
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.fmoraga.dictuc.ui.auth.LoginFragment"
+        android:label="DICTUC Hormigón"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_login_to_tipoPerfil"
+            app:destination="@id/tipoPerfilFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tipoPerfilFragment"
+        android:name="com.example.fmoraga.dictuc.ui.auth.TipoPerfilFragment"
+        android:label="Seleccionar Perfil"
+        tools:layout="@layout/fragment_tipo_perfil">
+
+        <action
+            android:id="@+id/action_tipoPerfil_to_listaMuestra"
+            app:destination="@id/listaMuestraFragment" />
+        <action
+            android:id="@+id/action_tipoPerfil_to_listaRetiro"
+            app:destination="@id/listaRetiroFragment" />
+    </fragment>
+
+    <!-- ─── Muestras ─────────────────────────────────────────────────────── -->
+
+    <fragment
+        android:id="@+id/listaMuestraFragment"
+        android:name="com.example.fmoraga.dictuc.ui.muestras.ListaMuestraFragment"
+        android:label="Lista de Muestras"
+        tools:layout="@layout/fragment_lista_muestra">
+
+        <action
+            android:id="@+id/action_listaMuestra_to_infoMuestra"
+            app:destination="@id/infoMuestraFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/infoMuestraFragment"
+        android:name="com.example.fmoraga.dictuc.ui.muestras.InfoMuestraFragment"
+        android:label="Detalle Muestra"
+        tools:layout="@layout/fragment_info_muestra">
+
+        <argument
+            android:name="idMuestra"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_infoMuestra_to_tomaMuestra"
+            app:destination="@id/tomaMuestraFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tomaMuestraFragment"
+        android:name="com.example.fmoraga.dictuc.ui.muestras.TomaMuestraFragment"
+        android:label="Toma de Muestra"
+        tools:layout="@layout/fragment_toma_muestra">
+
+        <argument
+            android:name="idMuestra"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_tomaMuestra_to_listaMuestra"
+            app:destination="@id/listaMuestraFragment"
+            app:popUpTo="@id/listaMuestraFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- ─── Retiro ────────────────────────────────────────────────────────── -->
+
+    <fragment
+        android:id="@+id/listaRetiroFragment"
+        android:name="com.example.fmoraga.dictuc.ui.retiro.ListaRetiroFragment"
+        android:label="Lista de Retiros"
+        tools:layout="@layout/fragment_lista_retiro">
+
+        <action
+            android:id="@+id/action_listaRetiro_to_retirarMuestra"
+            app:destination="@id/retirarMuestraFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/retirarMuestraFragment"
+        android:name="com.example.fmoraga.dictuc.ui.retiro.RetirarMuestraFragment"
+        android:label="Retirar Muestra"
+        tools:layout="@layout/fragment_retirar_muestra">
+
+        <argument
+            android:name="idMuestra"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_retirarMuestra_to_listaRetiro"
+            app:destination="@id/listaRetiroFragment"
+            app:popUpTo="@id/listaRetiroFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

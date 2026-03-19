@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_awesome_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:titleTextColor="#FFF"
+        android:subtitleTextColor="#FFF"
+        android:layout_marginBottom="10dp"
+        android:background="?attr/colorPrimary" />
+
+    <ScrollView
+        android:id="@+id/lala"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="60dp">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/icon_probeta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_listview"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="27dp"
+                android:textStyle="bold"
+                android:text="@string/icon_probeta"
+                android:textColor="#2b4c70"
+                android:padding="5dp"
+                android:layout_alignParentTop="true" />
+
+            <TextView
+                android:text="Tipo de Perfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="27dp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="50dp"
+                android:id="@+id/lblTipoPerfil"
+                android:layout_alignParentLeft="true" />
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/lblTipoPerfil"
+                android:layout_margin="10dp"
+                android:background="#d7e0f1" />
+
+            <Button
+                android:layout_below="@+id/line1"
+                android:id="@+id/btnMuestreo"
+                android:layout_width="fill_parent"
+                android:text="@string/icon_probeta_muestra"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/round_buttom_info"
+                android:textColor="#FFF"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/btnRetiro"
+                android:layout_width="fill_parent"
+                android:text="@string/icon_camion_retiro"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/round_buttom_info"
+                android:textColor="#FFF"
+                android:layout_below="@+id/btnMuestreo"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+
+        </ScrollView>
+
+</RelativeLayout>

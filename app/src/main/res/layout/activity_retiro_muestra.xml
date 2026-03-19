@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="290dp"
+    tools:context="com.example.fmoraga.dictuc.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/panelCentaal"
+        android:padding="8dp"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_text"
+            android:padding="8dp"
+            android:inputType="number"
+            android:id="@+id/txtNumBoleta"
+            android:hint="Número de Boleta" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_text"
+            android:padding="8dp"
+            android:inputType="number"
+            android:id="@+id/txtIdMuestra"
+            android:layout_below="@+id/btnIngresar" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_text"
+            android:padding="8dp"
+            android:inputType="number"
+            android:id="@+id/txtPathFotografia1"
+            android:layout_below="@+id/btnIngresar" />
+
+        <Button
+            android:text="@string/icon_camara1"
+            android:layout_below="@+id/txtNumBoleta"
+            android:id="@+id/btnTomarFoto1"
+            android:background="@drawable/round_buttom_info"
+            android:textColor="#FFF"
+            android:layout_width="fill_parent"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="Ingresar"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:id="@+id/btnIngresar"
+            android:background="@drawable/round_buttom"
+            android:textColor="#FFF"
+            android:layout_width="fill_parent"
+            android:layout_margin="5dp"
+            android:layout_below="@+id/btnTomarFoto1"
+            android:padding="5dp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnIngresar"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:id="@+id/imgFoto1"/>
+    </RelativeLayout>
+
+</RelativeLayout>

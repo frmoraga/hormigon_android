@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_awesome_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:titleTextColor="#FFF"
+        android:subtitleTextColor="#FFF"
+        android:layout_marginBottom="10dp"
+        android:background="?attr/colorPrimary" />
+
+    <ScrollView
+        android:id="@+id/lala"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="60dp">
+
+        <RelativeLayout
+            android:id="@+id/panelAnular"
+            android:padding="4dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Motivo de Anulación"
+                android:id="@+id/lblMotivoAnulacion"
+                android:textSize="20dp"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:id="@+id/txtMotivoSuspencion"
+                android:background="@drawable/input_text"
+                android:layout_below="@+id/lblMotivoAnulacion"
+                android:inputType="textMultiLine" />
+
+            <CheckBox android:id="@+id/checkViajePerdido"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtMotivoSuspencion"
+                android:textSize="18dp"
+                android:text="¿Viaje Perdido?" />
+
+            <RelativeLayout
+                android:id="@+id/panelViajePerdido"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:layout_below="@id/checkViajePerdido">
+
+                <EditText
+                    android:id="@+id/txtNumBoleta"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/input_text"
+                    android:hint="Número de Boleta"
+                    android:inputType="number"
+                    android:layout_margin="5dp"
+                    android:padding="8dp" />
+
+                <EditText
+                    android:id="@+id/txtMaterialMarca"
+                    android:layout_below="@+id/txtNumBoleta"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/input_text"
+                    android:hint="Marca"
+                    android:padding="8dp" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtHoraLlegada"
+                    android:layout_below="@id/txtMaterialMarca"
+                    android:padding="8dp"
+                    android:focusable="false"
+                    android:background="@drawable/input_text"
+                    android:hint="Hora Llegada"
+                    android:layout_margin="5dp"/>
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtHoraSalidaObra"
+                    android:layout_below="@+id/txtHoraLlegada"
+                    android:padding="8dp"
+                    android:focusable="false"
+                    android:background="@drawable/input_text"
+                    android:hint="Hora Salida de Obra"
+                    android:layout_margin="5dp"/>
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_text"
+                    android:padding="8dp"
+                    android:id="@+id/txtPatente"
+                    android:layout_below="@+id/txtHoraSalidaObra"
+                    android:layout_margin="5dp"
+                    android:hint="Patente" />
+
+            </RelativeLayout>
+
+            <Button
+                android:text="Suspender"
+                android:layout_marginTop="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_warning"
+                android:layout_below="@+id/panelViajePerdido"
+                android:textColor="#FFF"
+                android:id="@+id/btnSuspender" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
