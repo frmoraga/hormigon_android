@@ -48,6 +48,29 @@ interface MuestraDao {
     @Query("DELETE FROM muestra_planificacion")
     suspend fun deleteAllPlanificacion()
 
+    /**
+     * Borra entradas de planificacion que el servidor ya no envía
+     * y que tampoco fueron tomadas localmente (no están en muestra_tomada).
+     */
+    @Query("""
+        DELETE FROM muestra_planificacion
+        WHERE id_muestra NOT IN (:serverIds)
+        AND id_muestra NOT IN (SELECT id_muestra FROM muestra_tomada)
+    """)
+    suspend fun deletePlanificacionNotInServer(serverIds: List<Long>)
+
+    /**
+     * Borra entradas de planificacion cuya muestra fue tomada en un día distinto
+     * al de hoy (limpieza al inicio del nuevo día). El formato de fecha es dd-MM-yyyy.
+     */
+    @Query("""
+        DELETE FROM muestra_planificacion
+        WHERE id_muestra IN (
+            SELECT id_muestra FROM muestra_tomada WHERE fecha_elaboracion != :today
+        )
+    """)
+    suspend fun deletePlanificacionTakenBefore(today: String)
+
     @Query("SELECT COUNT(*) FROM muestra_planificacion")
     suspend fun countAllPlanificacion(): Int
 

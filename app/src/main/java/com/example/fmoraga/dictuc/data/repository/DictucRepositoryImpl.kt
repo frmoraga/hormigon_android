@@ -136,8 +136,17 @@ class DictucRepositoryImpl @Inject constructor(
 
     override suspend fun syncPlanificacionFromServer(runMuestreador: Long): Result<Unit> = runCatching {
         val dtos = api.getPlanificacion()
-        muestraDao.deleteAllPlanificacion()
-        muestraDao.insertPlanificacion(dtos.map { it.toEntity() })
+        val entities = dtos.map { it.toEntity() }
+        // Insertar/actualizar lo que llega del servidor (REPLACE maneja duplicados)
+        muestraDao.insertPlanificacion(entities)
+        // Borrar entradas que el servidor ya no envía y no fueron tomadas localmente
+        val serverIds = entities.map { it.idMuestra }
+        if (serverIds.isNotEmpty()) {
+            muestraDao.deletePlanificacionNotInServer(serverIds)
+        }
+        // Limpiar muestras tomadas en días anteriores (inicio de nuevo día)
+        val today = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+        muestraDao.deletePlanificacionTakenBefore(today)
     }
 
     override suspend fun syncRetirosFromServer(runMuestreador: Long): Result<Unit> = runCatching {
