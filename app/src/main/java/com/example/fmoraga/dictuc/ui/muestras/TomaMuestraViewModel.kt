@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.fmoraga.dictuc.data.local.preferences.UserPreferences
@@ -65,8 +66,11 @@ class TomaMuestraViewModel @Inject constructor(
     }
 
     private fun triggerImmediateSync() {
-        WorkManager.getInstance(context)
-            .enqueue(OneTimeWorkRequestBuilder<SyncWorker>().build())
+        WorkManager.getInstance(context).enqueueUniqueWork(
+            "${SyncWorker.WORK_NAME}_immediate",
+            ExistingWorkPolicy.REPLACE,
+            OneTimeWorkRequestBuilder<SyncWorker>().build()
+        )
     }
 
     fun agregarProbetaExtra(cantidad: Int, observacion: String) {
