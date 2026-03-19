@@ -60,15 +60,16 @@ interface MuestraDao {
     suspend fun deleteAllPlanificacion()
 
     /**
-     * Borra entradas de planificacion que el servidor ya no envía
-     * y que tampoco fueron tomadas localmente (no están en muestra_tomada).
+     * Borra entradas de planificacion cuya PK (id) no está en la lista del servidor
+     * y cuya id_muestra tampoco fue tomada localmente hoy.
+     * Elimina tanto entradas obsoletas como duplicados con distinta PK.
      */
     @Query("""
         DELETE FROM muestra_planificacion
-        WHERE id_muestra NOT IN (:serverIds)
+        WHERE id NOT IN (:serverPkIds)
         AND id_muestra NOT IN (SELECT id_muestra FROM muestra_tomada)
     """)
-    suspend fun deletePlanificacionNotInServer(serverIds: List<Long>)
+    suspend fun deletePlanificacionNotInServer(serverPkIds: List<Long>)
 
     /**
      * Borra entradas de planificacion cuya muestra fue tomada en un día distinto

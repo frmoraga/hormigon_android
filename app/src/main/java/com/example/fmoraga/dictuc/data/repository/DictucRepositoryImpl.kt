@@ -143,10 +143,10 @@ class DictucRepositoryImpl @Inject constructor(
         val entities = dtos.map { it.toEntity() }
         // Insertar/actualizar lo que llega del servidor (REPLACE maneja duplicados)
         muestraDao.insertPlanificacion(entities)
-        // Borrar entradas que el servidor ya no envía y no fueron tomadas localmente
-        val serverIds = entities.map { it.idMuestra }
-        if (serverIds.isNotEmpty()) {
-            muestraDao.deletePlanificacionNotInServer(serverIds)
+        // Borrar entradas cuya PK no está en la respuesta del servidor y no fueron tomadas localmente
+        val serverPkIds = entities.map { it.id }
+        if (serverPkIds.isNotEmpty()) {
+            muestraDao.deletePlanificacionNotInServer(serverPkIds)
         }
         // Limpiar muestras tomadas en días anteriores (inicio de nuevo día)
         val today = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
