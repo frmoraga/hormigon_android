@@ -1,7 +1,9 @@
 package com.example.fmoraga.dictuc.data.repository
 
 import android.util.Log
+import androidx.room.withTransaction
 import com.example.fmoraga.dictuc.BuildConfig
+import com.example.fmoraga.dictuc.data.local.db.DictucDatabase
 import com.example.fmoraga.dictuc.data.local.db.dao.MuestraDao
 import com.example.fmoraga.dictuc.data.local.db.dao.MuestreadorDao
 import com.example.fmoraga.dictuc.data.local.db.dao.SyncDao
@@ -24,6 +26,7 @@ import javax.inject.Singleton
 @Singleton
 class DictucRepositoryImpl @Inject constructor(
     private val api: DictucApi,
+    private val db: DictucDatabase,
     private val muestreadorDao: MuestreadorDao,
     private val muestraDao: MuestraDao,
     private val syncDao: SyncDao
@@ -141,19 +144,17 @@ class DictucRepositoryImpl @Inject constructor(
     override suspend fun syncPlanificacionFromServer(runMuestreador: Long): Result<Unit> = runCatching {
         val dtos = api.getPlanificacion()
         val entities = dtos.map { it.toEntity() }
-        // Insertar/actualizar lo que llega del servidor (REPLACE maneja duplicados)
-        muestraDao.insertPlanificacion(entities)
-        // Borrar entradas cuya PK no está en la respuesta del servidor y no fueron tomadas localmente
-        // Dedup: si el servidor envía múltiples filas con el mismo id_muestra
-        // (PKs distintas), conservar solo la de mayor id antes de limpiar
-        muestraDao.dedupAllPlanificacion()
         val serverPkIds = entities.map { it.id }
-        if (serverPkIds.isNotEmpty()) {
-            muestraDao.deletePlanificacionNotInServer(serverPkIds)
-        }
-        // Limpiar muestras tomadas en días anteriores (inicio de nuevo día)
         val today = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-        muestraDao.deletePlanificacionTakenBefore(today)
+        // Transacción atómica: evita duplicados por Workers concurrentes
+        db.withTransaction {
+            muestraDao.insertPlanificacion(entities)
+            muestraDao.dedupAllPlanificacion()
+            if (serverPkIds.isNotEmpty()) {
+                muestraDao.deletePlanificacionNotInServer(serverPkIds)
+            }
+            muestraDao.deletePlanificacionTakenBefore(today)
+        }
     }
 
     override suspend fun syncRetirosFromServer(runMuestreador: Long): Result<Unit> = runCatching {

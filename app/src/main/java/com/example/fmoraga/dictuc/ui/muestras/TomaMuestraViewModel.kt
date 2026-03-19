@@ -68,7 +68,7 @@ class TomaMuestraViewModel @Inject constructor(
     private fun triggerImmediateSync() {
         WorkManager.getInstance(context).enqueueUniqueWork(
             "${SyncWorker.WORK_NAME}_immediate",
-            ExistingWorkPolicy.REPLACE,
+            ExistingWorkPolicy.KEEP,
             OneTimeWorkRequestBuilder<SyncWorker>().build()
         )
     }

@@ -29,10 +29,10 @@ class DictucApp : Application(), Configuration.Provider {
             ExistingPeriodicWorkPolicy.KEEP,
             SyncWorker.buildPeriodicRequest()
         )
-        // Sync inmediato al abrir la app (único — evita ejecuciones paralelas)
+        // Sync inmediato al abrir la app (único — si ya hay uno corriendo, no iniciar otro)
         wm.enqueueUniqueWork(
             "${SyncWorker.WORK_NAME}_immediate",
-            ExistingWorkPolicy.REPLACE,
+            ExistingWorkPolicy.KEEP,
             OneTimeWorkRequestBuilder<SyncWorker>().build()
         )
     }
