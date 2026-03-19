@@ -144,12 +144,13 @@ class DictucRepositoryImpl @Inject constructor(
         // Insertar/actualizar lo que llega del servidor (REPLACE maneja duplicados)
         muestraDao.insertPlanificacion(entities)
         // Borrar entradas cuya PK no está en la respuesta del servidor y no fueron tomadas localmente
+        // Dedup: si el servidor envía múltiples filas con el mismo id_muestra
+        // (PKs distintas), conservar solo la de mayor id antes de limpiar
+        muestraDao.dedupAllPlanificacion()
         val serverPkIds = entities.map { it.id }
         if (serverPkIds.isNotEmpty()) {
             muestraDao.deletePlanificacionNotInServer(serverPkIds)
         }
-        // Eliminar duplicados con PKs viejas para muestras ya tomadas
-        muestraDao.dedupTakenPlanificacion()
         // Limpiar muestras tomadas en días anteriores (inicio de nuevo día)
         val today = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
         muestraDao.deletePlanificacionTakenBefore(today)
