@@ -18,8 +18,23 @@ interface MuestraDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMuestras(list: List<MuestraEntity>)
 
+    @Query("DELETE FROM muestra WHERE id_muestra IN (:ids)")
+    suspend fun deleteMuestrasByIdMuestra(ids: List<Long>)
+
     @Query("DELETE FROM muestra")
     suspend fun deleteAllMuestras()
+
+    /**
+     * Elimina filas duplicadas en muestra por id_muestra (PK es autoincremental).
+     * Conserva solo la más reciente (MAX id) por id_muestra.
+     */
+    @Query("""
+        DELETE FROM muestra
+        WHERE id NOT IN (
+            SELECT MAX(id) FROM muestra GROUP BY id_muestra
+        )
+    """)
+    suspend fun dedupMuestra()
 
     /**
      * Borra muestras que el servidor ya no envía Y que no están referenciadas
@@ -99,6 +114,7 @@ interface MuestraDao {
     @Query("SELECT COUNT(*) FROM muestra_planificacion")
     suspend fun countAllPlanificacion(): Int
 
+
     @Query("UPDATE muestra_planificacion SET id_estado = :estado WHERE id_muestra = :idMuestra")
     suspend fun updateEstadoPlanificacion(idMuestra: Long, estado: Int)
 
@@ -134,3 +150,4 @@ interface MuestraDao {
     """)
     suspend fun dedupMuestraTomada()
 }
+
