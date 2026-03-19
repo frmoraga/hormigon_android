@@ -148,6 +148,8 @@ class DictucRepositoryImpl @Inject constructor(
         if (serverPkIds.isNotEmpty()) {
             muestraDao.deletePlanificacionNotInServer(serverPkIds)
         }
+        // Eliminar duplicados con PKs viejas para muestras ya tomadas
+        muestraDao.dedupTakenPlanificacion()
         // Limpiar muestras tomadas en días anteriores (inicio de nuevo día)
         val today = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
         muestraDao.deletePlanificacionTakenBefore(today)

@@ -72,6 +72,21 @@ interface MuestraDao {
     suspend fun deletePlanificacionNotInServer(serverPkIds: List<Long>)
 
     /**
+     * Elimina filas duplicadas en planificacion para muestras ya tomadas.
+     * Puede quedar más de una fila con el mismo id_muestra cuando el servidor cambió
+     * el PK (id) entre sincronizaciones previas a la corrección. Para cada id_muestra
+     * que existe en muestra_tomada, conserva solo la fila con el menor id.
+     */
+    @Query("""
+        DELETE FROM muestra_planificacion
+        WHERE id_muestra IN (SELECT id_muestra FROM muestra_tomada)
+        AND id NOT IN (
+            SELECT MIN(id) FROM muestra_planificacion GROUP BY id_muestra
+        )
+    """)
+    suspend fun dedupTakenPlanificacion()
+
+    /**
      * Borra entradas de planificacion cuya muestra fue tomada en un día distinto
      * al de hoy (limpieza al inicio del nuevo día). El formato de fecha es dd-MM-yyyy.
      */
