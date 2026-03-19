@@ -121,4 +121,16 @@ interface MuestraDao {
 
     @Query("DELETE FROM muestra_tomada WHERE id_muestra = :idMuestra")
     suspend fun deleteMuestraTomada(idMuestra: Long)
+
+    /**
+     * Elimina filas duplicadas en muestra_tomada para el mismo id_muestra,
+     * conservando solo la más reciente (MAX id autoincremental).
+     */
+    @Query("""
+        DELETE FROM muestra_tomada
+        WHERE id NOT IN (
+            SELECT MAX(id) FROM muestra_tomada GROUP BY id_muestra
+        )
+    """)
+    suspend fun dedupMuestraTomada()
 }

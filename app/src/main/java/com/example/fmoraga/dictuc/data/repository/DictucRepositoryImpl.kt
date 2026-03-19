@@ -53,6 +53,7 @@ class DictucRepositoryImpl @Inject constructor(
     // ─── Muestra tomada ───────────────────────────────────────────────────
 
     override suspend fun saveMuestraTomada(mt: MuestraTomada): Long {
+        muestraDao.deleteMuestraTomada(mt.idMuestra)  // evita duplicados (PK es autoincremental)
         val id = muestraDao.insertMuestraTomada(MuestraTomadaEntity.fromDomain(mt))
         muestraDao.updateEstadoPlanificacion(mt.idMuestra, 2)  // 2=tomada en escala del servidor
         return id
@@ -146,8 +147,13 @@ class DictucRepositoryImpl @Inject constructor(
         val entities = dtos.map { it.toEntity() }
         val serverPkIds = entities.map { it.id }
         val today = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+        // LOG TEMPORAL — eliminar después
+        val dupes = entities.groupBy { it.idMuestra }.filter { it.value.size > 1 }
+        Log.d("SYNC_DEBUG", "getPlanificacion: ${entities.size} entidades, serverPkIds=$serverPkIds")
+        if (dupes.isNotEmpty()) Log.w("SYNC_DEBUG", "DUPLICADOS EN RESPUESTA SERVIDOR: $dupes")
         // Transacción atómica: evita duplicados por Workers concurrentes
         db.withTransaction {
+            muestraDao.dedupMuestraTomada()  // limpia duplicados en muestra_tomada (causa del JOIN x3)
             muestraDao.insertPlanificacion(entities)
             muestraDao.dedupAllPlanificacion()
             if (serverPkIds.isNotEmpty()) {
