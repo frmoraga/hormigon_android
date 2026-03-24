@@ -54,4 +54,29 @@ interface DictucRepository {
     suspend fun sendProbetaExtra(pe: ProbetaExtra): Result<Unit>
     suspend fun uploadFile(localPath: String): Result<Unit>
     suspend fun checkNotification(idMuestreador: Long): Boolean
+
+    // --- Reporte diario ---
+    suspend fun getDailyReport(idMuestreador: Long): List<com.example.fmoraga.dictuc.data.local.db.dao.ResumenMuestraDia>
+    suspend fun sendDailyReport(
+        runMuestreador: Long,
+        idMuestreador: Long,
+        fecha: String,
+        cuerpoHtml: String,
+        total: Int,
+        tomadas: Int,
+        pendientes: Int,
+        suspendidas: Int,
+        viajePerdido: Int
+    ): Result<Unit>
+
+    // --- Reporte de errores ---
+    suspend fun sendErrorReport(
+        runMuestreador: Long,
+        idMuestreador: Long,
+        tipo: String,
+        tag: String,
+        mensaje: String,
+        stacktrace: String,
+        timestamp: String
+    ): Result<Unit>
 }

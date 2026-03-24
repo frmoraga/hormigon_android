@@ -87,7 +87,14 @@ class TomaMuestraViewModel @Inject constructor(
         }
     }
 
-    fun suspenderMuestra(motivo: String) {
+    fun suspenderMuestra(
+        motivo: String,
+        esViajePerdido: Boolean = false,
+        numBoleta: String = "",
+        horaLlegada: String = "",
+        horaSalidaObra: String = "",
+        numPatente: String = ""
+    ) {
         viewModelScope.launch {
             val idMuestreador = userPreferences.idMuestreador.first()
             val fecha = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault())
@@ -97,7 +104,12 @@ class TomaMuestraViewModel @Inject constructor(
                     idMuestra = idMuestra,
                     runMuestreador = idMuestreador,
                     fechaSuspension = fecha,
-                    motivo = motivo
+                    motivo = motivo,
+                    idEstado = if (esViajePerdido) 3 else 2,
+                    numBoleta = numBoleta,
+                    horaLlegada = horaLlegada,
+                    horaSalidaObra = horaSalidaObra,
+                    numPatente = numPatente
                 )
             )
             _state.value = TomaMuestraState.Saved

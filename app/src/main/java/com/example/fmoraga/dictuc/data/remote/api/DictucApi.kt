@@ -56,4 +56,12 @@ interface DictucApi {
     @FormUrlEncoded
     @POST("getData/index.phtml")
     suspend fun sendProbetaExtra(@FieldMap fields: Map<String, String>): ResponseBody
+
+    @FormUrlEncoded
+    @POST("getData/index.phtml")
+    suspend fun sendErrorReport(@FieldMap fields: Map<String, String>): ResponseBody
+
+    @FormUrlEncoded
+    @POST("getData/index.phtml")
+    suspend fun sendDailyReport(@FieldMap fields: Map<String, String>): ResponseBody
 }

@@ -90,7 +90,7 @@ class DictucRepositoryImpl @Inject constructor(
 
     override suspend fun saveMuestraSuspendida(ms: MuestraSuspendida): Long {
         val id = syncDao.insertMuestraSuspendida(MuestraSuspendidaEntity.fromDomain(ms))
-        muestraDao.updateEstadoPlanificacion(ms.idMuestra, 3)  // 3=suspendida en escala del servidor
+        muestraDao.updateEstadoPlanificacion(ms.idMuestra, 3)  // 3=suspendida/viaje perdido en lista
         return id
     }
 
@@ -252,13 +252,22 @@ class DictucRepositoryImpl @Inject constructor(
     }
 
     override suspend fun sendMuestraSuspendida(ms: MuestraSuspendida): Result<Unit> = runCatching {
-        val fields = mapOf(
-            "action" to "sendMuestraSuspendida",
-            "id_muestra" to ms.idMuestra.toString(),
-            "run_muestreador" to ms.runMuestreador.toString(),
-            "fecha_suspension" to ms.fechaSuspension,
-            "motivo" to ms.motivo
-        )
+        val fields = buildMap<String, String> {
+            put("action", "sendMuestraSuspendida")
+            put("id_muestra", ms.idMuestra.toString())
+            put("run_muestreador", ms.runMuestreador.toString())
+            put("fecha_suspension", ms.fechaSuspension)
+            put("id_estado", ms.idEstado.toString())
+            if (ms.idEstado == 3) {  // Viaje perdido
+                put("otra_opcionEje", ms.motivo)
+                put("num_boleta", ms.numBoleta)
+                put("hora_llegada", ms.horaLlegada)
+                put("hora_salida_obra", ms.horaSalidaObra)
+                put("num_patente", ms.numPatente)
+            } else {
+                put("observacion", ms.motivo)
+            }
+        }
         api.sendMuestraSuspendida(fields).close()
     }
 
@@ -304,4 +313,55 @@ class DictucRepositoryImpl @Inject constructor(
     override suspend fun checkNotification(idMuestreador: Long): Boolean = runCatching {
         api.getNotification(idMuestreador = idMuestreador)
     }.getOrDefault(false)
+
+    override suspend fun getDailyReport(idMuestreador: Long) =
+        muestraDao.getDailyReport(idMuestreador)
+
+    override suspend fun sendDailyReport(
+        runMuestreador: Long,
+        idMuestreador: Long,
+        fecha: String,
+        cuerpoHtml: String,
+        total: Int,
+        tomadas: Int,
+        pendientes: Int,
+        suspendidas: Int,
+        viajePerdido: Int
+    ): Result<Unit> = runCatching {
+        val fields = mapOf(
+            "action"          to "sendDailyReport",
+            "run_muestreador" to runMuestreador.toString(),
+            "id_muestreador"  to idMuestreador.toString(),
+            "fecha"           to fecha,
+            "cuerpo_html"     to cuerpoHtml,
+            "total"           to total.toString(),
+            "tomadas"         to tomadas.toString(),
+            "pendientes"      to pendientes.toString(),
+            "suspendidas"     to suspendidas.toString(),
+            "viaje_perdido"   to viajePerdido.toString()
+        )
+        api.sendDailyReport(fields).close()
+    }
+
+    override suspend fun sendErrorReport(
+        runMuestreador: Long,
+        idMuestreador: Long,
+        tipo: String,
+        tag: String,
+        mensaje: String,
+        stacktrace: String,
+        timestamp: String
+    ): Result<Unit> = runCatching {
+        val fields = mapOf(
+            "action"          to "sendErrorReport",
+            "run_muestreador" to runMuestreador.toString(),
+            "id_muestreador"  to idMuestreador.toString(),
+            "tipo"            to tipo,
+            "tag"             to tag,
+            "mensaje"         to mensaje,
+            "stacktrace"      to stacktrace,
+            "timestamp"       to timestamp
+        )
+        api.sendErrorReport(fields).close()
+    }
 }

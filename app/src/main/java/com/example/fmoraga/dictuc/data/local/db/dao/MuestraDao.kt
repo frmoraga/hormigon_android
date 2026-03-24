@@ -6,6 +6,7 @@ import com.example.fmoraga.dictuc.data.local.db.entity.MuestraPlanificacionEntit
 import com.example.fmoraga.dictuc.data.local.db.entity.MuestraTomadaEntity
 import kotlinx.coroutines.flow.Flow
 import com.example.fmoraga.dictuc.data.local.db.dao.MuestraPlanificacionConMuestra
+import com.example.fmoraga.dictuc.data.local.db.dao.ResumenMuestraDia
 
 @Dao
 interface MuestraDao {
@@ -117,6 +118,23 @@ interface MuestraDao {
 
     @Query("UPDATE muestra_planificacion SET id_estado = :estado WHERE id_muestra = :idMuestra")
     suspend fun updateEstadoPlanificacion(idMuestra: Long, estado: Int)
+
+    @Query("""
+        SELECT mp.id_muestra, mp.id_estado,
+               COALESCE(m.card_fname, '') AS card_fname,
+               COALESCE(m.address, '') AS address,
+               COALESCE(mt.num_boleta, '') AS num_boleta,
+               COALESCE(mt.hora_muestreo, '') AS hora_muestreo,
+               COALESCE(
+                   (SELECT MAX(ms.id_estado) FROM muestra_suspendida ms WHERE ms.id_muestra = mp.id_muestra),
+                   0
+               ) AS id_estado_suspension
+        FROM muestra_planificacion mp
+        LEFT JOIN muestra m ON mp.id_muestra = m.id_muestra
+        LEFT JOIN muestra_tomada mt ON mp.id_muestra = mt.id_muestra
+        WHERE mp.id_muestreador = :idMuestreador
+    """)
+    suspend fun getDailyReport(idMuestreador: Long): List<ResumenMuestraDia>
 
     // ─── Muestra tomada ──────────────────────────────────────────────────
 

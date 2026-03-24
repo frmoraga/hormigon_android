@@ -220,7 +220,7 @@ class TomaMuestraFragment : Fragment() {
                 marcaPremezclado      = b.txtMarcaPremezclado.text.toString(),
                 numCamion             = b.txtNumCamion.text.toString().toLongOrNull() ?: 0,
                 numGuia               = b.txtNumGuia.text.toString().toLongOrNull() ?: 0,
-                idPreparadoObra       = 0L,
+                idPreparadoObra       = b.radioGrpPreparadoObra.indexOfChild(b.root.findViewById(b.radioGrpPreparadoObra.checkedRadioButtonId)).toLong(),
                 planta                = b.txtPlanta.text.toString(),
                 dosificacionKgM       = b.txtDosificacion.text.toString().toDoubleOrNull() ?: 0.0,
                 marcaPObra            = b.txtMarcaPObra.text.toString(),
@@ -228,12 +228,12 @@ class TomaMuestraFragment : Fragment() {
                 procedenciaArena      = b.txtArena.text.toString(),
                 procedenciaGravilla   = b.txtGravilla.text.toString(),
                 procedenciaGrava      = b.txtGrava.text.toString(),
-                aditivoObra           = if (b.checkAditivo.isChecked) 1L else 0L,
+                aditivoObra           = if (b.checkAditivo.isChecked) 0L else 1L,
                 marcaAditivoObra      = b.txtMarcaAditivo.text.toString(),
                 tipoAditivoObra       = b.txtTipoAditivo.text.toString(),
                 cantidadAditivoObra   = b.txtCantidadAditivo.text.toString().toDoubleOrNull() ?: 0.0,
                 idEmpleadoEn          = b.spinnerElemento.selectedItemPosition.toLong(),
-                idEjesEmpleadoEn      = 0L,
+                idEjesEmpleadoEn      = b.spinnerEjesEmpleadoEn.selectedItemPosition.toLong(),
                 ejeX                  = b.txtEjeX.text.toString(),
                 ejeY                  = b.txtEjeY.text.toString(),
                 ejeZ                  = b.txtEjeZ.text.toString(),
@@ -270,6 +270,7 @@ class TomaMuestraFragment : Fragment() {
                 nombreMixero2         = b.txtNombreMixero2.text.toString(),
                 mailMixero2           = b.txtEmailMixero2.text.toString(),
                 observacion           = b.txtObservacion.text.toString(),
+                otraOpcionEje         = b.txtOtraOpcionEje.text.toString(),
                 numBoleta             = b.txtNumBoleta.text.toString(),
                 horaLlegada           = b.txtHoraLlegada.text.toString(),
                 horaMuestreo          = b.txtHoraMuestreo.text.toString(),
@@ -330,11 +331,10 @@ class TomaMuestraFragment : Fragment() {
     }
 
     private fun buildEnsayo(): String {
-        val ensayos = mutableListOf<String>()
-        if (binding.checkCompactacion.isChecked)   ensayos.add("compactacion")
-        if (binding.checkFlexotraccion.isChecked)  ensayos.add("flexotraccion")
-        if (binding.checkHendimiento.isChecked)    ensayos.add("hendimiento")
-        return ensayos.joinToString(",")
+        val c = if (binding.checkCompactacion.isChecked)  1 else 0
+        val f = if (binding.checkFlexotraccion.isChecked) 1 else 0
+        val h = if (binding.checkHendimiento.isChecked)   1 else 0
+        return "$c-$f-$h"
     }
 
     private fun setupConditionalVisibility() {
@@ -367,13 +367,39 @@ class TomaMuestraFragment : Fragment() {
         // ── Ejes ───────────────────────────────────────────────────────────
         binding.layoutEjesXYZ.visibility = View.GONE
         binding.layoutEjesAB.visibility = View.GONE
+        binding.spinnerEjesEmpleadoEn.visibility = View.GONE
+        binding.layoutOtraOpcionEje.visibility = View.GONE
+
+        val elementArrays = mapOf(
+            1 to R.array.array_cimiento,
+            2 to R.array.array_losa,
+            3 to R.array.array_pilar,
+            4 to R.array.array_muro,
+            5 to R.array.array_viga,
+            6 to R.array.array_pavimento
+        )
+
         binding.spinnerElemento.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: android.widget.AdapterView<*>?, view: android.view.View?, pos: Int, id: Long) {
                 val showEjes = pos >= 1 && pos <= 6
                 binding.layoutEjesXYZ.visibility = if (showEjes) View.VISIBLE else View.GONE
-                // Show A/B only for elements that need them: Losa(2), Muro(4), Cimiento desc 5
                 val showAB = pos == 2 || pos == 4 || pos == 1
                 binding.layoutEjesAB.visibility = if (showEjes && showAB) View.VISIBLE else View.GONE
+
+                // Element description sub-spinner
+                val arrayRes = elementArrays[pos]
+                if (arrayRes != null) {
+                    val adapter = android.widget.ArrayAdapter.createFromResource(
+                        requireContext(), arrayRes, android.R.layout.simple_spinner_item
+                    ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+                    binding.spinnerEjesEmpleadoEn.adapter = adapter
+                    binding.spinnerEjesEmpleadoEn.visibility = View.VISIBLE
+                } else {
+                    binding.spinnerEjesEmpleadoEn.visibility = View.GONE
+                }
+
+                // "Otra opción" free-text field (pos 7)
+                binding.layoutOtraOpcionEje.visibility = if (pos == 7) View.VISIBLE else View.GONE
             }
             override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
         }
@@ -390,13 +416,33 @@ class TomaMuestraFragment : Fragment() {
 
     private fun setupSuspender() {
         binding.btnSuspender.setOnClickListener {
-            val input = android.widget.EditText(requireContext())
+            val dialogView = LayoutInflater.from(requireContext())
+                .inflate(R.layout.dialog_suspender_muestra, null)
+
+            val etMotivo = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etMotivo)
+            val checkViajePerdido = dialogView.findViewById<android.widget.CheckBox>(R.id.checkViajePerdido)
+            val panelViajePerdido = dialogView.findViewById<android.widget.LinearLayout>(R.id.panelViajePerdido)
+            val etNumBoleta = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etNumBoleta)
+            val etHoraLlegada = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etHoraLlegada)
+            val etHoraSalidaObra = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etHoraSalidaObra)
+            val etNumPatente = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etNumPatente)
+
+            checkViajePerdido.setOnCheckedChangeListener { _, isChecked ->
+                panelViajePerdido.visibility = if (isChecked) View.VISIBLE else View.GONE
+            }
+
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Suspender Muestra")
-                .setMessage("Indique el motivo:")
-                .setView(input)
+                .setView(dialogView)
                 .setPositiveButton("Suspender") { _, _ ->
-                    viewModel.suspenderMuestra(input.text.toString())
+                    viewModel.suspenderMuestra(
+                        motivo = etMotivo.text.toString(),
+                        esViajePerdido = checkViajePerdido.isChecked,
+                        numBoleta = etNumBoleta.text.toString(),
+                        horaLlegada = etHoraLlegada.text.toString(),
+                        horaSalidaObra = etHoraSalidaObra.text.toString(),
+                        numPatente = etNumPatente.text.toString()
+                    )
                 }
                 .setNegativeButton("Cancelar", null)
                 .show()

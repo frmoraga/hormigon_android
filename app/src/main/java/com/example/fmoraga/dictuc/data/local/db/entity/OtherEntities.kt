@@ -41,17 +41,26 @@ data class MuestraSuspendidaEntity(
     @ColumnInfo(name = "run_muestreador") val runMuestreador: Long,
     @ColumnInfo(name = "fecha_suspension") val fechaSuspension: String,
     val motivo: String = "",
+    @ColumnInfo(name = "id_estado") val idEstado: Int = 2,
+    @ColumnInfo(name = "num_boleta") val numBoleta: String = "",
+    @ColumnInfo(name = "hora_llegada") val horaLlegada: String = "",
+    @ColumnInfo(name = "hora_salida_obra") val horaSalidaObra: String = "",
+    @ColumnInfo(name = "num_patente") val numPatente: String = "",
     val enviado: Boolean = false
 ) {
     fun toDomain() = MuestraSuspendida(
         id = id, idMuestra = idMuestra, runMuestreador = runMuestreador,
-        fechaSuspension = fechaSuspension, motivo = motivo, enviado = enviado
+        fechaSuspension = fechaSuspension, motivo = motivo, idEstado = idEstado,
+        numBoleta = numBoleta, horaLlegada = horaLlegada,
+        horaSalidaObra = horaSalidaObra, numPatente = numPatente, enviado = enviado
     )
 
     companion object {
         fun fromDomain(ms: MuestraSuspendida) = MuestraSuspendidaEntity(
             id = ms.id, idMuestra = ms.idMuestra, runMuestreador = ms.runMuestreador,
-            fechaSuspension = ms.fechaSuspension, motivo = ms.motivo, enviado = ms.enviado
+            fechaSuspension = ms.fechaSuspension, motivo = ms.motivo, idEstado = ms.idEstado,
+            numBoleta = ms.numBoleta, horaLlegada = ms.horaLlegada,
+            horaSalidaObra = ms.horaSalidaObra, numPatente = ms.numPatente, enviado = ms.enviado
         )
     }
 }

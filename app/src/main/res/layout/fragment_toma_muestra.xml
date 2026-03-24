@@ -339,6 +339,35 @@
             android:orientation="vertical"
             android:visibility="gone">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preparación"
+                android:textAppearance="?attr/textAppearanceLabelMedium"
+                android:layout_marginBottom="4dp" />
+
+            <RadioGroup
+                android:id="@+id/radioGrpPreparadoObra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <RadioButton
+                    android:id="@+id/rbMaquina"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Máquina"
+                    android:checked="true"
+                    android:layout_marginEnd="16dp" />
+
+                <RadioButton
+                    android:id="@+id/rbPala"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pala" />
+            </RadioGroup>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -493,6 +522,30 @@
             android:layout_height="wrap_content"
             android:entries="@array/array_colocacion"
             android:layout_marginBottom="8dp" />
+
+        <!-- Descripción de elemento estructural -->
+        <Spinner
+            android:id="@+id/spinnerEjesEmpleadoEn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone" />
+
+        <!-- Otra opción (elemento libre) -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutOtraOpcionEje"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:hint="Descripción del elemento"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtOtraOpcionEje"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Ejes -->
         <LinearLayout

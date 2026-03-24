@@ -10,6 +10,7 @@ import androidx.work.*
 import com.example.fmoraga.dictuc.R
 import com.example.fmoraga.dictuc.data.local.preferences.UserPreferences
 import com.example.fmoraga.dictuc.domain.repository.DictucRepository
+import com.example.fmoraga.dictuc.util.ErrorReporter
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.first
@@ -25,7 +26,8 @@ class SyncWorker @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters,
     private val repository: DictucRepository,
-    private val userPreferences: UserPreferences
+    private val userPreferences: UserPreferences,
+    private val errorReporter: ErrorReporter
 ) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {
@@ -45,17 +47,26 @@ class SyncWorker @AssistedInject constructor(
         for (jl in repository.getJornadasPendientes()) {
             repository.sendJornada(jl)
                 .onSuccess { repository.deleteJornada(jl.id) }
-                .onFailure { Log.e(TAG, "Error enviando jornada ${jl.id}", it) }
+                .onFailure {
+                    Log.e(TAG, "Error enviando jornada ${jl.id}", it)
+                    errorReporter.report("SyncWorker:sendJornada[${jl.id}]", it)
+                }
         }
         for (ms in repository.getMuestrasSuspendidas()) {
             repository.sendMuestraSuspendida(ms)
                 .onSuccess { repository.deleteMuestraSuspendida(ms.id) }
-                .onFailure { Log.e(TAG, "Error enviando suspensión ${ms.id}", it) }
+                .onFailure {
+                    Log.e(TAG, "Error enviando suspensión ${ms.id}", it)
+                    errorReporter.report("SyncWorker:sendMuestraSuspendida[${ms.id}]", it)
+                }
         }
         for (pe in repository.getProbetasExtra()) {
             repository.sendProbetaExtra(pe)
                 .onSuccess { repository.deleteProbetaExtra(pe.id) }
-                .onFailure { Log.e(TAG, "Error enviando probeta extra ${pe.id}", it) }
+                .onFailure {
+                    Log.e(TAG, "Error enviando probeta extra ${pe.id}", it)
+                    errorReporter.report("SyncWorker:sendProbetaExtra[${pe.id}]", it)
+                }
         }
         repository.fixRunMuestreador(idMuestreador)
         val sinEnviar = repository.getMuestrasSinEnviar()
@@ -72,12 +83,18 @@ class SyncWorker @AssistedInject constructor(
                     repository.uploadFile(mt.pathFoto3)
                     repository.uploadFile(mt.pathFoto4)
                 }
-                .onFailure { Log.e(TAG, "Error enviando muestra ${mt.idMuestra}", it) }
+                .onFailure {
+                    Log.e(TAG, "Error enviando muestra ${mt.idMuestra}", it)
+                    errorReporter.report("SyncWorker:sendMuestraTomada[${mt.idMuestra}]", it)
+                }
         }
         for (mr in repository.getMuestrasPendientesEnvioRetiro()) {
             repository.sendMuestraRetirada(mr)
                 .onSuccess { repository.uploadFile(mr.pathFoto) }
-                .onFailure { Log.e(TAG, "Error enviando retiro ${mr.idMuestra}", it) }
+                .onFailure {
+                    Log.e(TAG, "Error enviando retiro ${mr.idMuestra}", it)
+                    errorReporter.report("SyncWorker:sendMuestraRetirada[${mr.idMuestra}]", it)
+                }
         }
 
         // Notificar si hay actualizaciones pendientes
