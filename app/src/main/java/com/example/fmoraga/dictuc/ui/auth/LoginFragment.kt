@@ -10,7 +10,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.fmoraga.dictuc.R
+import com.example.fmoraga.dictuc.data.remote.sync.SyncWorker
 import com.example.fmoraga.dictuc.databinding.FragmentLoginBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,6 +43,15 @@ class LoginFragment : Fragment() {
                 runStr   = binding.txtRun.text.toString(),
                 password = binding.txtPassword.text.toString()
             )
+        }
+
+        binding.btnForzarSync.setOnClickListener {
+            WorkManager.getInstance(requireContext()).enqueueUniqueWork(
+                "${SyncWorker.WORK_NAME}_manual",
+                ExistingWorkPolicy.REPLACE,
+                OneTimeWorkRequestBuilder<SyncWorker>().build()
+            )
+            Snackbar.make(binding.root, "Sincronizando...", Snackbar.LENGTH_SHORT).show()
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

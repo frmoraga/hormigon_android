@@ -62,6 +62,15 @@
             android:text="Ingresar"
             android:textSize="16sp" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnForzarSync"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Forzar sincronización"
+            app:icon="@drawable/ic_sync"
+            style="@style/Widget.Material3.Button.OutlinedButton" />
+
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
