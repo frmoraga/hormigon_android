@@ -30,6 +30,10 @@ class ListaMuestraViewModel @Inject constructor(
         .map { list -> list.sortedBy { estadoOrden(it.estado) } }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
+    // Fix 4: conteo reactivo de muestras pendientes de envío al servidor
+    val pendingCount: StateFlow<Int> = repository.countMuestrasSinEnviar()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), 0)
+
     /** Pendientes primero, luego suspendidas, tomadas y retiradas al final. */
     private fun estadoOrden(estado: Int) = when (estado) {
         1 -> 0   // pendiente (servidor: 1)

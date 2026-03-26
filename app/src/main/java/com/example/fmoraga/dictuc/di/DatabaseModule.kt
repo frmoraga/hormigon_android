@@ -21,6 +21,7 @@ object DatabaseModule {
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): DictucDatabase =
         Room.databaseBuilder(context, DictucDatabase::class.java, "DB_Hormigon_v2")
+            .addMigrations(DictucDatabase.MIGRATION_5_6)
             .fallbackToDestructiveMigration()
             .build()
 

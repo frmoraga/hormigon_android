@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
@@ -64,6 +65,24 @@ class DictucRepositoryImpl @Inject constructor(
 
     override suspend fun getMuestrasSinEnviar(): List<MuestraTomada> =
         muestraDao.getMuestrasSinEnviar().map { it.toDomain() }
+
+    override fun countMuestrasSinEnviar(): Flow<Int> =
+        muestraDao.countMuestrasSinEnviar()
+
+    override suspend fun getMuestrasSinSubirFotos(): List<MuestraTomada> =
+        muestraDao.getMuestrasSinSubirFotos().map { it.toDomain() }
+
+    override suspend fun markFotosEnviadas(idMuestra: Long) =
+        muestraDao.markFotosEnviadas(idMuestra)
+
+    override suspend fun incrementarIntentosEnvio(idMuestra: Long) =
+        muestraDao.incrementarIntentosEnvio(idMuestra)
+
+    override suspend fun purgeOldSentRecords() {
+        val cutoff = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, -30) }
+        val fechaLimite = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cutoff.time)
+        muestraDao.deleteSentMuestrasAntes(fechaLimite)
+    }
 
     override suspend fun fixRunMuestreador(run: Long) =
         muestraDao.fixRunMuestreador(run)

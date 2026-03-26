@@ -76,18 +76,30 @@ class SyncWorker @AssistedInject constructor(
             repository.sendMuestraTomada(mt)
                 .onSuccess {
                     Log.d(TAG, "Muestra ${mt.idMuestra} enviada OK")
-                    repository.uploadFile(mt.pathFirma)
-                    repository.uploadFile(mt.pathFirma2)
-                    repository.uploadFile(mt.pathFoto)
-                    repository.uploadFile(mt.pathFoto2)
-                    repository.uploadFile(mt.pathFoto3)
-                    repository.uploadFile(mt.pathFoto4)
+                    // Fix 1: subir fotos y marcarlas solo si SFTP tuvo éxito total
+                    val allUploaded = uploadMuestraFiles(mt.idMuestra,
+                        mt.pathFirma, mt.pathFirma2,
+                        mt.pathFoto, mt.pathFoto2, mt.pathFoto3, mt.pathFoto4)
+                    if (allUploaded) repository.markFotosEnviadas(mt.idMuestra)
                 }
                 .onFailure {
                     Log.e(TAG, "Error enviando muestra ${mt.idMuestra}", it)
+                    // Fix 6: incrementar contador de intentos para no reintentar indefinidamente
+                    repository.incrementarIntentosEnvio(mt.idMuestra)
                     errorReporter.report("SyncWorker:sendMuestraTomada[${mt.idMuestra}]", it)
                 }
         }
+
+        // Fix 1: reintentar subida SFTP de fotos para muestras ya enviadas al API
+        val sinFotos = repository.getMuestrasSinSubirFotos()
+        Log.d(TAG, "Muestras con fotos pendientes de subir: ${sinFotos.size}")
+        for (mt in sinFotos) {
+            val allUploaded = uploadMuestraFiles(mt.idMuestra,
+                mt.pathFirma, mt.pathFirma2,
+                mt.pathFoto, mt.pathFoto2, mt.pathFoto3, mt.pathFoto4)
+            if (allUploaded) repository.markFotosEnviadas(mt.idMuestra)
+        }
+
         for (mr in repository.getMuestrasPendientesEnvioRetiro()) {
             repository.sendMuestraRetirada(mr)
                 .onSuccess { repository.uploadFile(mr.pathFoto) }
@@ -97,11 +109,28 @@ class SyncWorker @AssistedInject constructor(
                 }
         }
 
+        // Fix 5: purgar registros completamente enviados con más de 30 días
+        repository.purgeOldSentRecords()
+
         // Notificar si hay actualizaciones pendientes
         val hasNotification = repository.checkNotification(idMuestreador)
         if (hasNotification) showNotification()
 
         return Result.success()
+    }
+
+    /** Sube todos los archivos de una muestra vía SFTP. Retorna true solo si todos tuvieron éxito. */
+    private suspend fun uploadMuestraFiles(idMuestra: Long, vararg paths: String): Boolean {
+        var allOk = true
+        for (path in paths) {
+            if (path.isBlank()) continue
+            repository.uploadFile(path).onFailure {
+                Log.e(TAG, "SFTP falló para muestra $idMuestra: $path", it)
+                errorReporter.report("SyncWorker:uploadFile[$idMuestra]", it)
+                allOk = false
+            }
+        }
+        return allOk
     }
 
     private fun showNotification() {

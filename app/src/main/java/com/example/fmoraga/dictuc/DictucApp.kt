@@ -2,6 +2,10 @@ package com.example.fmoraga.dictuc
 
 import android.app.Application
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.*
 import com.example.fmoraga.dictuc.data.remote.sync.DailyReportWorker
@@ -26,6 +30,7 @@ class DictucApp : Application(), Configuration.Provider {
         installCrashHandler()
         scheduleSync()
         sendPendingCrashIfAny()
+        registerNetworkCallback()
     }
 
     private fun installCrashHandler() {
@@ -43,6 +48,26 @@ class DictucApp : Application(), Configuration.Provider {
                 ErrorReportWorker.buildRequest()
             )
         }
+    }
+
+    /**
+     * Fix 2: dispara sync inmediato cuando el dispositivo recupera conectividad,
+     * sin esperar al próximo ciclo de 15 minutos del WorkManager.
+     */
+    private fun registerNetworkCallback() {
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val request = NetworkRequest.Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .build()
+        cm.registerNetworkCallback(request, object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                WorkManager.getInstance(applicationContext).enqueueUniqueWork(
+                    "${SyncWorker.WORK_NAME}_on_network",
+                    ExistingWorkPolicy.KEEP,
+                    OneTimeWorkRequestBuilder<SyncWorker>().build()
+                )
+            }
+        })
     }
 
     private fun scheduleSync() {

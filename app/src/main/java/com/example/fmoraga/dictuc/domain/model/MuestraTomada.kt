@@ -73,5 +73,7 @@ data class MuestraTomada(
     val designacion: String = "",
     val tipoProbeta: Long,
     val idEstado: Long = 0,
-    val enviado: Boolean = false
+    val enviado: Boolean = false,
+    val fotosEnviadas: Boolean = false,
+    val intentosEnvio: Int = 0
 )

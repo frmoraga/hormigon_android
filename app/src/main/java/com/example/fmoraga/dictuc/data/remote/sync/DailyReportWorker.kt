@@ -39,7 +39,7 @@ class DailyReportWorker @AssistedInject constructor(
 
         val cuerpoHtml = buildHtml(fecha, idMuestreador, muestras, total, tomadas, pendientes, suspendidas, viajePerdido)
 
-        repository.sendDailyReport(
+        val resultado = repository.sendDailyReport(
             runMuestreador = run,
             idMuestreador  = idMuestreador,
             fecha          = fecha,
@@ -51,7 +51,8 @@ class DailyReportWorker @AssistedInject constructor(
             viajePerdido   = viajePerdido
         )
 
-        return Result.success()
+        // Fix 3: reintentar con backoff exponencial si falla por falta de red
+        return if (resultado.isSuccess) Result.success() else Result.retry()
     }
 
     private fun buildHtml(
@@ -124,6 +125,7 @@ class DailyReportWorker @AssistedInject constructor(
                         .setRequiredNetworkType(NetworkType.CONNECTED)
                         .build()
                 )
+                .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 5, TimeUnit.MINUTES)
                 .build()
         }
     }

@@ -17,6 +17,11 @@ interface DictucRepository {
     suspend fun saveMuestraTomada(mt: MuestraTomada): Long
     suspend fun getMuestraTomada(idMuestra: Long): MuestraTomada?
     suspend fun getMuestrasSinEnviar(): List<MuestraTomada>
+    fun countMuestrasSinEnviar(): Flow<Int>           // Fix 4: conteo reactivo para UI
+    suspend fun getMuestrasSinSubirFotos(): List<MuestraTomada>  // Fix 1: retry SFTP
+    suspend fun markFotosEnviadas(idMuestra: Long)    // Fix 1
+    suspend fun incrementarIntentosEnvio(idMuestra: Long) // Fix 6
+    suspend fun purgeOldSentRecords()                 // Fix 5
     suspend fun fixRunMuestreador(run: Long)
 
     // --- Retiro ---

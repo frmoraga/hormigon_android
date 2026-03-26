@@ -141,14 +141,44 @@ interface MuestraDao {
     @Query("SELECT * FROM muestra_tomada WHERE id_muestra = :idMuestra LIMIT 1")
     suspend fun getMuestraTomada(idMuestra: Long): MuestraTomadaEntity?
 
-    @Query("SELECT * FROM muestra_tomada WHERE enviado = 0")
+    // Excluir registros que superaron el límite de 10 intentos (Fix 6)
+    @Query("SELECT * FROM muestra_tomada WHERE enviado = 0 AND intentos_envio < 10")
     suspend fun getMuestrasSinEnviar(): List<MuestraTomadaEntity>
+
+    // Fix 4: conteo reactivo para el indicador de sync en la UI
+    @Query("SELECT COUNT(*) FROM muestra_tomada WHERE enviado = 0 AND intentos_envio < 10")
+    fun countMuestrasSinEnviar(): Flow<Int>
+
+    // Fix 1: muestras enviadas al API pero cuyas fotos SFTP aún no se subieron
+    @Query("SELECT * FROM muestra_tomada WHERE enviado = 1 AND fotos_enviadas = 0")
+    suspend fun getMuestrasSinSubirFotos(): List<MuestraTomadaEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMuestraTomada(mt: MuestraTomadaEntity): Long
 
     @Query("UPDATE muestra_tomada SET enviado = 1 WHERE id_muestra = :idMuestra")
     suspend fun markEnviada(idMuestra: Long)
+
+    // Fix 1: marcar fotos subidas vía SFTP
+    @Query("UPDATE muestra_tomada SET fotos_enviadas = 1 WHERE id_muestra = :idMuestra")
+    suspend fun markFotosEnviadas(idMuestra: Long)
+
+    // Fix 6: incrementar contador de intentos fallidos
+    @Query("UPDATE muestra_tomada SET intentos_envio = intentos_envio + 1 WHERE id_muestra = :idMuestra")
+    suspend fun incrementarIntentosEnvio(idMuestra: Long)
+
+    // Fix 5: purgar registros completamente enviados más antiguos de 30 días
+    // fecha_elaboracion tiene formato dd-MM-yyyy; se convierte a yyyy-MM-dd para comparación
+    @Query("""
+        DELETE FROM muestra_tomada
+        WHERE enviado = 1 AND fotos_enviadas = 1
+        AND (
+            substr(fecha_elaboracion, 7, 4) || '-' ||
+            substr(fecha_elaboracion, 4, 2) || '-' ||
+            substr(fecha_elaboracion, 1, 2)
+        ) < :fechaLimiteYmd
+    """)
+    suspend fun deleteSentMuestrasAntes(fechaLimiteYmd: String)
 
     @Query("UPDATE muestra_tomada SET run_muestreador = :run WHERE run_muestreador = 0 AND enviado = 0")
     suspend fun fixRunMuestreador(run: Long)

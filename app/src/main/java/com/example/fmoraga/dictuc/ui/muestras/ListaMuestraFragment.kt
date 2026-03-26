@@ -91,6 +91,21 @@ class ListaMuestraFragment : Fragment() {
             }
         }
 
+        // Fix 4: mostrar banner cuando hay muestras sin sincronizar
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.pendingCount.collect { count ->
+                    if (count > 0) {
+                        binding.txtPendingSync.text =
+                            "⚠ $count muestra${if (count > 1) "s" else ""} pendiente${if (count > 1) "s" else ""} de sincronizar"
+                        binding.txtPendingSync.visibility = android.view.View.VISIBLE
+                    } else {
+                        binding.txtPendingSync.visibility = android.view.View.GONE
+                    }
+                }
+            }
+        }
+
         // Sync inmediato al entrar al fragment
         viewModel.refresh()
     }

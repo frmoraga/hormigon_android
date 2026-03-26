@@ -79,7 +79,9 @@ data class MuestraTomadaEntity(
     val designacion: String = "",
     @ColumnInfo(name = "tipo_probeta") val tipoProbeta: Long,
     @ColumnInfo(name = "id_estado") val idEstado: Long = 0,
-    val enviado: Boolean = false
+    val enviado: Boolean = false,
+    @ColumnInfo(name = "fotos_enviadas") val fotosEnviadas: Boolean = false,
+    @ColumnInfo(name = "intentos_envio") val intentosEnvio: Int = 0
 ) {
     fun toDomain() = MuestraTomada(
         id = id, idMuestra = idMuestra, runMuestreador = runMuestreador,
@@ -109,7 +111,8 @@ data class MuestraTomadaEntity(
         horaLlegada = horaLlegada, horaMuestreo = horaMuestreo, horaSalida = horaSalida,
         horaSalidaObra = horaSalidaObra, metrosCubicos = metrosCubicos, numPatente = numPatente,
         tipoCurado = tipoCurado, designacion = designacion, tipoProbeta = tipoProbeta,
-        idEstado = idEstado, enviado = enviado
+        idEstado = idEstado, enviado = enviado,
+        fotosEnviadas = fotosEnviadas, intentosEnvio = intentosEnvio
     )
 
     companion object {
@@ -145,7 +148,8 @@ data class MuestraTomadaEntity(
             horaSalida = mt.horaSalida, horaSalidaObra = mt.horaSalidaObra,
             metrosCubicos = mt.metrosCubicos, numPatente = mt.numPatente,
             tipoCurado = mt.tipoCurado, designacion = mt.designacion,
-            tipoProbeta = mt.tipoProbeta, idEstado = mt.idEstado, enviado = mt.enviado
+            tipoProbeta = mt.tipoProbeta, idEstado = mt.idEstado, enviado = mt.enviado,
+            fotosEnviadas = mt.fotosEnviadas, intentosEnvio = mt.intentosEnvio
         )
     }
 }
