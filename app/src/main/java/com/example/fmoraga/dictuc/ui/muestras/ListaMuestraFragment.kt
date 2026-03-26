@@ -7,6 +7,10 @@ import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import com.example.fmoraga.dictuc.data.remote.sync.SyncWorker
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -109,13 +113,32 @@ class ListaMuestraFragment : Fragment() {
             }
         }
 
-        // Empujar el FAB por encima de la barra de navegación del sistema (gestos / 3 botones)
+        // Empujar los FABs por encima de la barra de navegación del sistema
+        val density = resources.displayMetrics.density
         ViewCompat.setOnApplyWindowInsetsListener(binding.btnTerminarJornada) { view, insets ->
             val navBarHeight = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
             view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = navBarHeight + (16 * resources.displayMetrics.density).toInt()
+                bottomMargin = navBarHeight + (16 * density).toInt()
             }
             insets
+        }
+        ViewCompat.setOnApplyWindowInsetsListener(binding.btnForzarSync) { view, insets ->
+            val navBarHeight = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+            view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                // 56dp (altura ExtendedFAB) + 16dp margen inferior + 16dp separación + navBar
+                bottomMargin = navBarHeight + (88 * density).toInt()
+            }
+            insets
+        }
+
+        // Botón de sync manual
+        binding.btnForzarSync.setOnClickListener {
+            WorkManager.getInstance(requireContext()).enqueueUniqueWork(
+                "${SyncWorker.WORK_NAME}_manual",
+                ExistingWorkPolicy.REPLACE,
+                OneTimeWorkRequestBuilder<SyncWorker>().build()
+            )
+            Snackbar.make(binding.root, "Sincronizando...", Snackbar.LENGTH_SHORT).show()
         }
 
         // Sync inmediato al entrar al fragment
