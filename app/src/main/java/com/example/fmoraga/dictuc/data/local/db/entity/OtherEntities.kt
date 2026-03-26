@@ -1,6 +1,7 @@
 package com.example.fmoraga.dictuc.data.local.db.entity
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.fmoraga.dictuc.domain.model.*
@@ -135,4 +136,16 @@ data class RetiroMuestraEntity(
             numBoleta = rm.numBoleta, idEstado = rm.idEstado
         )
     }
+}
+
+/** Resultado de la query JOIN retiro_muestra + muestra_retirada. */
+data class RetiroMuestraConEstado(
+    @Embedded val retiro: RetiroMuestraEntity,
+    @ColumnInfo(name = "retirada_localmente") val retiradaLocalmente: Boolean = false,
+    @ColumnInfo(name = "retiro_enviado") val retiroEnviado: Boolean = false
+) {
+    fun toDomain() = retiro.toDomain().copy(
+        retiradaLocalmente = retiradaLocalmente,
+        retiroEnviado = retiroEnviado
+    )
 }

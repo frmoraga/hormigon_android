@@ -102,7 +102,15 @@ class SyncWorker @AssistedInject constructor(
 
         for (mr in repository.getMuestrasPendientesEnvioRetiro()) {
             repository.sendMuestraRetirada(mr)
-                .onSuccess { repository.uploadFile(mr.pathFoto) }
+                .onSuccess {
+                    repository.markRetiroEnviado(mr.id)
+                    if (mr.pathFoto.isNotBlank()) {
+                        repository.uploadFile(mr.pathFoto).onFailure {
+                            Log.e(TAG, "SFTP falló para retiro ${mr.idMuestra}: ${mr.pathFoto}", it)
+                            errorReporter.report("SyncWorker:uploadRetiroFile[${mr.idMuestra}]", it)
+                        }
+                    }
+                }
                 .onFailure {
                     Log.e(TAG, "Error enviando retiro ${mr.idMuestra}", it)
                     errorReporter.report("SyncWorker:sendMuestraRetirada[${mr.idMuestra}]", it)

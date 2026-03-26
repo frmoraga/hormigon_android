@@ -69,7 +69,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/array_tipo_probeta"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            style="@style/SpinnerOutlined" />
 
         <!-- ── Fecha y horas ──────────────────────────────────────────── -->
         <LinearLayout
@@ -223,7 +224,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/array_tipo_hormigon"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            style="@style/SpinnerOutlined" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutOtraOpcion"
@@ -249,7 +251,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/array_material"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            style="@style/SpinnerOutlined" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -262,7 +265,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/array_preparado_obra"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            style="@style/SpinnerOutlined" />
 
         <LinearLayout
             android:id="@+id/layoutPremezclado"
@@ -521,7 +525,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/array_colocacion"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            style="@style/SpinnerOutlined" />
 
         <!-- Descripción de elemento estructural -->
         <Spinner
@@ -529,7 +534,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            style="@style/SpinnerOutlined" />
 
         <!-- Otra opción (elemento libre) -->
         <com.google.android.material.textfield.TextInputLayout
@@ -612,7 +618,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/array_compactacionObra"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            style="@style/SpinnerOutlined" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -625,7 +632,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/array_colocacionObra"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            style="@style/SpinnerOutlined" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -638,7 +646,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/array_compactacion_probeta"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            style="@style/SpinnerOutlined" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutVibrador"
@@ -1094,7 +1103,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/array_curado"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            style="@style/SpinnerOutlined" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent" android:layout_height="wrap_content"

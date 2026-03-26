@@ -90,7 +90,7 @@ class DictucRepositoryImpl @Inject constructor(
     // ─── Retiro ───────────────────────────────────────────────────────────
 
     override fun getRetirosAsignados(runMuestreador: Long): Flow<List<RetiroMuestra>> =
-        syncDao.getRetiros(runMuestreador).map { list -> list.map { it.toDomain() } }
+        syncDao.getRetirosConEstado(runMuestreador).map { list -> list.map { it.toDomain() } }
 
     override suspend fun saveMuestraRetirada(mr: MuestraRetirada): Long {
         val id = syncDao.insertMuestraRetirada(MuestraRetiradaEntity.fromDomain(mr))
@@ -102,6 +102,8 @@ class DictucRepositoryImpl @Inject constructor(
 
     override suspend fun getMuestrasPendientesEnvioRetiro(): List<MuestraRetirada> =
         syncDao.getMuestrasPendientesRetiro().map { it.toDomain() }
+
+    override suspend fun markRetiroEnviado(id: Long) = syncDao.markRetiroEnviado(id)
 
     override suspend fun deleteMuestraRetirada(id: Long) = syncDao.deleteMuestraRetirada(id)
 

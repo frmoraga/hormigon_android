@@ -1,5 +1,6 @@
 package com.example.fmoraga.dictuc.ui.retiro
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -21,6 +22,25 @@ class RetiroMuestraAdapter(
             binding.txtMaterial.text  = item.nombreMaterial
             binding.txtBoleta.text    = if (item.numBoleta.isNotEmpty()) "Boleta: ${item.numBoleta}" else ""
             binding.txtFecha.text     = item.fechaProgramada
+
+            // Barra de estado y texto de sync
+            when {
+                item.retiroEnviado -> {
+                    binding.viewEstadoBarra.setBackgroundColor(Color.parseColor("#4CAF50")) // verde
+                    binding.txtSyncEstado.text = "Sincronizado ✓"
+                    binding.txtSyncEstado.setTextColor(Color.parseColor("#4CAF50"))
+                }
+                item.retiradaLocalmente -> {
+                    binding.viewEstadoBarra.setBackgroundColor(Color.parseColor("#FF9800")) // naranja
+                    binding.txtSyncEstado.text = "Pendiente sync ↑"
+                    binding.txtSyncEstado.setTextColor(Color.parseColor("#FF9800"))
+                }
+                else -> {
+                    binding.viewEstadoBarra.setBackgroundColor(Color.parseColor("#2196F3")) // azul
+                    binding.txtSyncEstado.text = ""
+                }
+            }
+
             binding.root.setOnClickListener { onClick(item) }
         }
     }

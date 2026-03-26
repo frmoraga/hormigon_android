@@ -10,5 +10,7 @@ data class RetiroMuestra(
     val county: String,
     val nombreMaterial: String,
     val numBoleta: String = "",
-    val idEstado: Int = 2  // 2=pendiente retiro, 3=retirada
+    val idEstado: Int = 2,  // 2=pendiente retiro, 3=retirada (desde servidor)
+    val retiradaLocalmente: Boolean = false,  // hay registro en muestra_retirada
+    val retiroEnviado: Boolean = false         // muestra_retirada.enviado = true
 )

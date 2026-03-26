@@ -70,10 +70,11 @@ class TomaMuestraFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Ajustar padding inferior del scroll cuando aparece el teclado (edge-to-edge API 35+)
+        // Ajustar padding inferior del scroll para nav bar y teclado (edge-to-edge API 35+)
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val navBar = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
             val imeHeight = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
-            v.setPadding(v.paddingLeft, v.paddingTop, v.paddingRight, imeHeight)
+            v.setPadding(v.paddingLeft, v.paddingTop, v.paddingRight, maxOf(navBar, imeHeight))
             insets
         }
 
@@ -385,8 +386,8 @@ class TomaMuestraFragment : Fragment() {
             override fun onItemSelected(parent: android.widget.AdapterView<*>?, view: android.view.View?, pos: Int, id: Long) {
                 val showEjes = pos >= 1 && pos <= 6
                 binding.layoutEjesXYZ.visibility = if (showEjes) View.VISIBLE else View.GONE
-                val showAB = pos == 2 || pos == 4 || pos == 1
-                binding.layoutEjesAB.visibility = if (showEjes && showAB) View.VISIBLE else View.GONE
+                // Todos los elementos (cimiento, losa, pilar, muro, viga, pavimento) usan ejes A/B
+                binding.layoutEjesAB.visibility = if (showEjes) View.VISIBLE else View.GONE
 
                 // Element description sub-spinner
                 val arrayRes = elementArrays[pos]

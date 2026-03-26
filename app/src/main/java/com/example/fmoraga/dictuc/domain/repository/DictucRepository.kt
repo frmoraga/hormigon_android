@@ -29,6 +29,7 @@ interface DictucRepository {
     suspend fun saveMuestraRetirada(mr: MuestraRetirada): Long
     suspend fun getMuestraRetirada(idMuestra: Long): MuestraRetirada?
     suspend fun getMuestrasPendientesEnvioRetiro(): List<MuestraRetirada>
+    suspend fun markRetiroEnviado(id: Long)
     suspend fun deleteMuestraRetirada(id: Long)
 
     // --- Suspensión ---

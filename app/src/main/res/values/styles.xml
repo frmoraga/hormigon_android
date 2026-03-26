@@ -17,6 +17,15 @@
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
+    <!-- Spinner con borde visible (similar a OutlinedBox) -->
+    <style name="SpinnerOutlined">
+        <item name="android:background">@drawable/bg_spinner</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">40dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+    </style>
+
     <!-- ToolBar -->
     <style name="ToolBarStyle" parent="Theme.AppCompat">
         <item name="android:textColorPrimary">@android:color/white</item>
