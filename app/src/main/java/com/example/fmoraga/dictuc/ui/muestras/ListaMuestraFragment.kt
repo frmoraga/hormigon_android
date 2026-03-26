@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -104,6 +107,15 @@ class ListaMuestraFragment : Fragment() {
                     }
                 }
             }
+        }
+
+        // Empujar el FAB por encima de la barra de navegación del sistema (gestos / 3 botones)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.btnTerminarJornada) { view, insets ->
+            val navBarHeight = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+            view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = navBarHeight + (16 * resources.displayMetrics.density).toInt()
+            }
+            insets
         }
 
         // Sync inmediato al entrar al fragment
