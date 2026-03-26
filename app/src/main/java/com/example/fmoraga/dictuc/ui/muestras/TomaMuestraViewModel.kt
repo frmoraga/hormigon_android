@@ -46,6 +46,10 @@ class TomaMuestraViewModel @Inject constructor(
     var photoUri2: Uri? = null
     var photoUri3: Uri? = null
     var photoUri4: Uri? = null
+    var photoPath1: String = ""
+    var photoPath2: String = ""
+    var photoPath3: String = ""
+    var photoPath4: String = ""
     var signaturePath1: String = ""
     var signaturePath2: String = ""
 

@@ -45,16 +45,17 @@ class TomaMuestraFragment : Fragment() {
     // Fotos
     private var activePhotoSlot = 1
     private var tempPhotoUri: Uri? = null
+    private var tempPhotoPath: String = ""
 
     private val takePictureLauncher = registerForActivityResult(
         ActivityResultContracts.TakePicture()
     ) { success ->
         if (success) {
             when (activePhotoSlot) {
-                1 -> { viewModel.photoUri1 = tempPhotoUri; binding.imgFoto1.setImageURI(tempPhotoUri) }
-                2 -> { viewModel.photoUri2 = tempPhotoUri; binding.imgFoto2.setImageURI(tempPhotoUri) }
-                3 -> { viewModel.photoUri3 = tempPhotoUri; binding.imgFoto3.setImageURI(tempPhotoUri) }
-                4 -> { viewModel.photoUri4 = tempPhotoUri; binding.imgFoto4.setImageURI(tempPhotoUri) }
+                1 -> { viewModel.photoUri1 = tempPhotoUri; viewModel.photoPath1 = tempPhotoPath; binding.imgFoto1.setImageURI(tempPhotoUri) }
+                2 -> { viewModel.photoUri2 = tempPhotoUri; viewModel.photoPath2 = tempPhotoPath; binding.imgFoto2.setImageURI(tempPhotoUri) }
+                3 -> { viewModel.photoUri3 = tempPhotoUri; viewModel.photoPath3 = tempPhotoPath; binding.imgFoto3.setImageURI(tempPhotoUri) }
+                4 -> { viewModel.photoUri4 = tempPhotoUri; viewModel.photoPath4 = tempPhotoPath; binding.imgFoto4.setImageURI(tempPhotoUri) }
             }
         }
     }
@@ -155,6 +156,7 @@ class TomaMuestraFragment : Fragment() {
         fun launchCamera(slot: Int) {
             activePhotoSlot = slot
             val photoFile = createImageFile()
+            tempPhotoPath = photoFile.absolutePath
             tempPhotoUri = FileProvider.getUriForFile(
                 requireContext(),
                 "${requireContext().packageName}.fileprovider",
@@ -259,10 +261,10 @@ class TomaMuestraFragment : Fragment() {
                 pesoMaterialKg        = b.txtPesoMat.text.toString().toDoubleOrNull() ?: 0.0,
                 contenidoAire         = b.txtContenidoAire.text.toString().toDoubleOrNull() ?: 0.0,
                 nombreEquipoContAire  = b.txtEquipoAire.text.toString(),
-                pathFoto              = viewModel.photoUri1?.path ?: "",
-                pathFoto2             = viewModel.photoUri2?.path ?: "",
-                pathFoto3             = viewModel.photoUri3?.path ?: "",
-                pathFoto4             = viewModel.photoUri4?.path ?: "",
+                pathFoto              = viewModel.photoPath1,
+                pathFoto2             = viewModel.photoPath2,
+                pathFoto3             = viewModel.photoPath3,
+                pathFoto4             = viewModel.photoPath4,
                 pathFirma             = viewModel.signaturePath1,
                 nombreMixero          = b.txtNombreMixero1.text.toString(),
                 mailMixero            = b.txtEmailMixero1.text.toString(),
