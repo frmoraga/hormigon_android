@@ -133,20 +133,16 @@
     <!-- Arrays faltantes para TomaMuestraFragment -->
     <string-array name="array_tipo_hormigon">
         <item>- Tipo de Hormigón</item>
-        <item>Premezclado</item>
-        <item>Fabricado en Obra</item>
-        <item>Prefabricado</item>
-        <item>Proyectado</item>
+        <item>Pavimento</item>
+        <item>Normal</item>
+        <item>Bombeable</item>
         <item>Otro</item>
     </string-array>
 
     <string-array name="array_material">
         <item>- Material</item>
-        <item>Cemento Portland</item>
-        <item>Cemento con puzolana</item>
-        <item>Cemento con escoria</item>
-        <item>Cemento de alta resistencia</item>
-        <item>Otro</item>
+        <item>Premezclado</item>
+        <item>Preparado en Obra</item>
     </string-array>
 
     <string-array name="array_preparado_obra">
@@ -158,10 +154,9 @@
 
     <string-array name="array_compactacion_probeta">
         <item>- Compactación probeta</item>
-        <item>Varillado</item>
-        <item>Vibrado</item>
-        <item>Vibrado externo</item>
-        <item>Sin compactación</item>
+        <item>Apisonada</item>
+        <item>Vibrada</item>
+        <item>Sacudida</item>
     </string-array>
 
     <string-array name="array_tipo_probeta">

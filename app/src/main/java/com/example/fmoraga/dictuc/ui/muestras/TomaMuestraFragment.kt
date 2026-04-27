@@ -187,7 +187,7 @@ class TomaMuestraFragment : Fragment() {
     private fun showSignatureDialog(slot: Int) {
         val signatureView = SignatureView(requireContext())
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Firma ${if (slot == 1) "Muestreador" else "Mixero"}")
+            .setTitle("Firma ${if (slot == 1) "Mixero" else "Jefe de Obra"}")
             .setView(signatureView)
             .setPositiveButton("Guardar") { _, _ ->
                 if (!signatureView.isEmpty) {
@@ -219,7 +219,7 @@ class TomaMuestraFragment : Fragment() {
                 fechaElaboracion      = b.txtFechaElaboracion.text.toString(),
                 tipoHormigon          = (b.spinnerTipoHormigon.selectedItemPosition - 1).toLong(),
                 otraOpcion            = b.txtOtraOpcion.text.toString(),
-                idMaterial            = (b.spinnerPreparadoObra.selectedItemPosition - 1).toLong(),
+                idMaterial            = (b.spinnerMaterial.selectedItemPosition - 1).toLong(),
                 marcaPremezclado      = b.txtMarcaPremezclado.text.toString(),
                 numCamion             = b.txtNumCamion.text.toString().toLongOrNull() ?: 0,
                 numGuia               = b.txtNumGuia.text.toString().toLongOrNull() ?: 0,
@@ -291,9 +291,9 @@ class TomaMuestraFragment : Fragment() {
                 errors.add("• Fecha de elaboración")
             if (b.spinnerTipoHormigon.selectedItemPosition == 0)
                 errors.add("• Tipo de hormigón")
-            if (b.spinnerPreparadoObra.selectedItemPosition == 0)
-                errors.add("• Preparado en (planta/obra)")
-            if (b.spinnerPreparadoObra.selectedItemPosition == 1) {
+            if (b.spinnerMaterial.selectedItemPosition == 0)
+                errors.add("• Material (Premezclado / Preparado en Obra)")
+            if (b.spinnerMaterial.selectedItemPosition == 1) {
                 if (b.txtMarcaPremezclado.text.isNullOrBlank()) errors.add("• Marca premezclado")
                 if (b.txtNumCamion.text.isNullOrBlank()) errors.add("• Número de camión")
                 if (b.txtNumGuia.text.isNullOrBlank()) errors.add("• Número de guía")
@@ -345,15 +345,15 @@ class TomaMuestraFragment : Fragment() {
         binding.layoutOtraOpcion.visibility = View.GONE
         binding.spinnerTipoHormigon.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: android.widget.AdapterView<*>?, view: android.view.View?, pos: Int, id: Long) {
-                binding.layoutOtraOpcion.visibility = if (pos == 5) View.VISIBLE else View.GONE
+                binding.layoutOtraOpcion.visibility = if (pos == 4) View.VISIBLE else View.GONE
             }
             override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
         }
 
-        // ── Preparado en / material section ───────────────────────────────
+        // ── Material: Premezclado / Preparado en Obra ─────────────────────
         binding.layoutPremezclado.visibility = View.GONE
         binding.layoutPreparadoObra.visibility = View.GONE
-        binding.spinnerPreparadoObra.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
+        binding.spinnerMaterial.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: android.widget.AdapterView<*>?, view: android.view.View?, pos: Int, id: Long) {
                 binding.layoutPremezclado.visibility = if (pos == 1) View.VISIBLE else View.GONE
                 binding.layoutPreparadoObra.visibility = if (pos == 2) View.VISIBLE else View.GONE
@@ -384,12 +384,10 @@ class TomaMuestraFragment : Fragment() {
 
         binding.spinnerElemento.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: android.widget.AdapterView<*>?, view: android.view.View?, pos: Int, id: Long) {
-                val showEjes = pos >= 1 && pos <= 6
-                binding.layoutEjesXYZ.visibility = if (showEjes) View.VISIBLE else View.GONE
-                // Todos los elementos (cimiento, losa, pilar, muro, viga, pavimento) usan ejes A/B
-                binding.layoutEjesAB.visibility = if (showEjes) View.VISIBLE else View.GONE
+                // Ejes solo aparecen al seleccionar descripción en sub-spinner
+                binding.layoutEjesXYZ.visibility = View.GONE
+                binding.layoutEjesAB.visibility = View.GONE
 
-                // Element description sub-spinner
                 val arrayRes = elementArrays[pos]
                 if (arrayRes != null) {
                     val adapter = android.widget.ArrayAdapter.createFromResource(
@@ -401,8 +399,27 @@ class TomaMuestraFragment : Fragment() {
                     binding.spinnerEjesEmpleadoEn.visibility = View.GONE
                 }
 
-                // "Otra opción" free-text field (pos 7)
                 binding.layoutOtraOpcionEje.visibility = if (pos == 7) View.VISIBLE else View.GONE
+            }
+            override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
+        }
+
+        // Sub-spinner de descripción: muestra solo los ejes mencionados en el template (XXX=X, YYY=Y, ZZZ=Z, AAA=A, BBB=B)
+        binding.spinnerEjesEmpleadoEn.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: android.widget.AdapterView<*>?, view: android.view.View?, pos: Int, id: Long) {
+                val desc = parent?.getItemAtPosition(pos)?.toString() ?: ""
+                val showX = "XXX" in desc
+                val showY = "YYY" in desc
+                val showZ = "ZZZ" in desc
+                val showA = "AAA" in desc
+                val showB = "BBB" in desc
+                (binding.txtEjeX.parent as? android.view.View)?.visibility = if (showX) View.VISIBLE else View.GONE
+                (binding.txtEjeY.parent as? android.view.View)?.visibility = if (showY) View.VISIBLE else View.GONE
+                (binding.txtEjeZ.parent as? android.view.View)?.visibility = if (showZ) View.VISIBLE else View.GONE
+                (binding.txtEjeA.parent as? android.view.View)?.visibility = if (showA) View.VISIBLE else View.GONE
+                (binding.txtEjeB.parent as? android.view.View)?.visibility = if (showB) View.VISIBLE else View.GONE
+                binding.layoutEjesXYZ.visibility = if (showX || showY || showZ) View.VISIBLE else View.GONE
+                binding.layoutEjesAB.visibility = if (showA || showB) View.VISIBLE else View.GONE
             }
             override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
         }
@@ -411,7 +428,7 @@ class TomaMuestraFragment : Fragment() {
         binding.layoutVibrador.visibility = View.GONE
         binding.spinnerCompactacionProbeta.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: android.widget.AdapterView<*>?, view: android.view.View?, pos: Int, id: Long) {
-                binding.layoutVibrador.visibility = if (pos == 2 || pos == 3) View.VISIBLE else View.GONE
+                binding.layoutVibrador.visibility = if (pos == 2) View.VISIBLE else View.GONE
             }
             override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
         }
