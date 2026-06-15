@@ -67,11 +67,24 @@ interface SyncDao {
     """)
     fun getRetirosConEstado(runMuestreador: Long): Flow<List<RetiroMuestraConEstado>>
 
+    @Query("""
+        SELECT rm.*,
+               CASE WHEN mr.id IS NOT NULL THEN 1 ELSE 0 END AS retirada_localmente,
+               COALESCE(mr.enviado, 0) AS retiro_enviado
+        FROM retiro_muestra rm
+        LEFT JOIN muestra_retirada mr ON rm.id_muestra = mr.id_muestra
+        ORDER BY CASE WHEN mr.id IS NOT NULL THEN 1 ELSE 0 END ASC, rm.id_estado ASC
+    """)
+    fun getRetirosTodos(): Flow<List<RetiroMuestraConEstado>>
+
     @Query("UPDATE muestra_retirada SET enviado = 1 WHERE id = :id")
     suspend fun markRetiroEnviado(id: Long)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRetiros(list: List<RetiroMuestraEntity>)
+
+    @Query("SELECT COUNT(*) FROM retiro_muestra")
+    suspend fun countRetiros(): Int
 
     @Query("DELETE FROM retiro_muestra")
     suspend fun deleteAllRetiros()

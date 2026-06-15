@@ -26,6 +26,7 @@ interface DictucRepository {
 
     // --- Retiro ---
     fun getRetirosAsignados(runMuestreador: Long): Flow<List<RetiroMuestra>>
+    fun getRetirosTodos(): Flow<List<RetiroMuestra>>
     suspend fun saveMuestraRetirada(mr: MuestraRetirada): Long
     suspend fun getMuestraRetirada(idMuestra: Long): MuestraRetirada?
     suspend fun getMuestrasPendientesEnvioRetiro(): List<MuestraRetirada>

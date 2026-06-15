@@ -11,6 +11,7 @@ import com.example.fmoraga.dictuc.data.local.db.entity.*
 import com.example.fmoraga.dictuc.data.remote.api.DictucApi
 import com.example.fmoraga.dictuc.domain.model.*
 import com.example.fmoraga.dictuc.domain.repository.DictucRepository
+import com.example.fmoraga.dictuc.util.AppLogger
 import com.jcraft.jsch.ChannelSftp
 import com.jcraft.jsch.JSch
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +31,8 @@ class DictucRepositoryImpl @Inject constructor(
     private val db: DictucDatabase,
     private val muestreadorDao: MuestreadorDao,
     private val muestraDao: MuestraDao,
-    private val syncDao: SyncDao
+    private val syncDao: SyncDao,
+    private val appLogger: AppLogger
 ) : DictucRepository {
 
     // ─── Auth ─────────────────────────────────────────────────────────────
@@ -92,6 +94,9 @@ class DictucRepositoryImpl @Inject constructor(
     override fun getRetirosAsignados(runMuestreador: Long): Flow<List<RetiroMuestra>> =
         syncDao.getRetirosConEstado(runMuestreador).map { list -> list.map { it.toDomain() } }
 
+    override fun getRetirosTodos(): Flow<List<RetiroMuestra>> =
+        syncDao.getRetirosTodos().map { list -> list.map { it.toDomain() } }
+
     override suspend fun saveMuestraRetirada(mr: MuestraRetirada): Long {
         val id = syncDao.insertMuestraRetirada(MuestraRetiradaEntity.fromDomain(mr))
         return id
@@ -151,19 +156,17 @@ class DictucRepositoryImpl @Inject constructor(
         val dtos = api.getMuestras()
         val entities = dtos.map { it.toEntity() }
         val serverIds = entities.map { it.idMuestra }
-        // Borrar antes de insertar: MuestraEntity usa PK autoincremental,
-        // por lo que REPLACE no evita duplicados por id_muestra
         if (serverIds.isNotEmpty()) muestraDao.deleteMuestrasByIdMuestra(serverIds)
         muestraDao.insertMuestras(entities)
-        if (serverIds.isNotEmpty()) {
-            muestraDao.deleteMuestrasNotInPlanificacion(serverIds)
-        }
+        if (serverIds.isNotEmpty()) muestraDao.deleteMuestrasNotInPlanificacion(serverIds)
+        appLogger.info("syncMuestras", "servidor=${dtos.size}")
     }
 
     override suspend fun syncMuestreadoresFromServer(): Result<Unit> = runCatching {
         val dtos = api.getMuestreadores()
         muestreadorDao.deleteAll()
         muestreadorDao.insertAll(dtos.map { it.toEntity() })
+        appLogger.info("syncMuestreadores", "servidor=${dtos.size}")
     }
 
     override suspend fun syncPlanificacionFromServer(runMuestreador: Long): Result<Unit> = runCatching {
@@ -171,23 +174,29 @@ class DictucRepositoryImpl @Inject constructor(
         val entities = dtos.map { it.toEntity() }
         val serverPkIds = entities.map { it.id }
         val today = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-        // Transacción atómica: evita duplicados por Workers concurrentes
         db.withTransaction {
             muestraDao.dedupMuestra()
             muestraDao.dedupMuestraTomada()
             muestraDao.insertPlanificacion(entities)
             muestraDao.dedupAllPlanificacion()
-            if (serverPkIds.isNotEmpty()) {
-                muestraDao.deletePlanificacionNotInServer(serverPkIds)
-            }
+            if (serverPkIds.isNotEmpty()) muestraDao.deletePlanificacionNotInServer(serverPkIds)
             muestraDao.deletePlanificacionTakenBefore(today)
         }
+        appLogger.info("syncPlanificacion", "servidor=${dtos.size}")
     }
 
     override suspend fun syncRetirosFromServer(runMuestreador: Long): Result<Unit> = runCatching {
         val dtos = api.getRetiros(idMuestreador = runMuestreador)
+        val serverCount = dtos.size
         syncDao.deleteAllRetiros()
         syncDao.insertRetiros(dtos.map { it.toEntity() })
+        val storedCount = syncDao.countRetiros()
+        if (storedCount != serverCount) {
+            // Anomalía: worker concurrente o fallo de borrado previo al insert
+            appLogger.warn("syncRetiros", "ANOMALIA: servidor=$serverCount guardados=$storedCount")
+        } else {
+            appLogger.info("syncRetiros", "OK servidor=$serverCount guardados=$storedCount")
+        }
     }
 
     override suspend fun sendMuestraTomada(mt: MuestraTomada): Result<Unit> = runCatching {
@@ -262,12 +271,12 @@ class DictucRepositoryImpl @Inject constructor(
 
     override suspend fun sendMuestraRetirada(mr: MuestraRetirada): Result<Unit> = runCatching {
         val fields = mapOf(
-            "action" to "sendMuestraRetirada",
-            "id_muestra" to mr.idMuestra.toString(),
-            "run_muestreador" to mr.runMuestreador.toString(),
-            "fecha_retiro" to mr.fechaRetiro,
-            "path_foto" to mr.pathFoto,
-            "observacion" to mr.observacion
+            "action"         to "sendMuestraRetirada",
+            "id_muestra"     to mr.idMuestra.toString(),
+            "id_muestreador" to mr.runMuestreador.toString(), // PHP espera id_muestreador, no run_muestreador
+            "fecha_retiro"   to mr.fechaRetiro,
+            "path_foto"      to mr.pathFoto,
+            "observacion"    to mr.observacion
         )
         api.sendMuestraRetirada(fields).close()
     }

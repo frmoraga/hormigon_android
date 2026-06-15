@@ -17,11 +17,7 @@ class RetiroViewModel @Inject constructor(
     private val userPreferences: UserPreferences
 ) : ViewModel() {
 
-    val retiros: StateFlow<List<RetiroMuestra>> = userPreferences.idMuestreador
-        .flatMapLatest { idMuestreador ->
-            if (idMuestreador >= 0) repository.getRetirosAsignados(idMuestreador)
-            else flowOf(emptyList())
-        }
+    val retiros: StateFlow<List<RetiroMuestra>> = repository.getRetirosTodos()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     private val _retirado = MutableStateFlow(false)

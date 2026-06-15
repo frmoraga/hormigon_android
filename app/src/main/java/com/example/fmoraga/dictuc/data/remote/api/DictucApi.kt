@@ -64,4 +64,8 @@ interface DictucApi {
     @FormUrlEncoded
     @POST("getData/index.phtml")
     suspend fun sendDailyReport(@FieldMap fields: Map<String, String>): ResponseBody
+
+    @FormUrlEncoded
+    @POST("getData/index.phtml")
+    suspend fun sendAppLog(@FieldMap fields: Map<String, String>): ResponseBody
 }
