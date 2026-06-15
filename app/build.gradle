@@ -40,6 +40,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            firebaseAppDistribution {
+                testers = "camiloarintrabajo@gmail.com"
+                releaseNotesFile = "release_notes.txt"
+            }
+        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -118,6 +124,11 @@ dependencies {
     // Activity + Fragment KTX
     implementation 'androidx.activity:activity-ktx:1.9.1'
     implementation 'androidx.fragment:fragment-ktx:1.8.1'
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:34.14.1')
+    debugImplementation 'com.google.firebase:firebase-appdistribution'
+    releaseImplementation 'com.google.firebase:firebase-appdistribution-api'
 
     // JSch for SFTP (modern maintained fork, available on Maven Central)
     implementation 'com.github.mwiede:jsch:0.2.16'
