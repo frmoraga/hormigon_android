@@ -126,9 +126,8 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.8.1'
 
     // Firebase
-    implementation platform('com.google.firebase:firebase-bom:34.14.1')
-    debugImplementation 'com.google.firebase:firebase-appdistribution'
-    releaseImplementation 'com.google.firebase:firebase-appdistribution-api'
+    debugImplementation 'com.google.firebase:firebase-appdistribution:16.0.0-beta19'
+    releaseImplementation 'com.google.firebase:firebase-appdistribution-api:16.0.0-beta19'
 
     // JSch for SFTP (modern maintained fork, available on Maven Central)
     implementation 'com.github.mwiede:jsch:0.2.16'
