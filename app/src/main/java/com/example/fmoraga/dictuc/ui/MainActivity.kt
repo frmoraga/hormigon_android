@@ -13,7 +13,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.fmoraga.dictuc.R
 import com.example.fmoraga.dictuc.databinding.ActivityMainBinding
-import com.google.firebase.appdistribution.FirebaseAppDistribution
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,8 +39,6 @@ class MainActivity : AppCompatActivity() {
             setOf(R.id.loginFragment, R.id.listaMuestraFragment, R.id.listaRetiroFragment)
         )
         setupActionBarWithNavController(navController, appBarConfig)
-
-        FirebaseAppDistribution.getInstance().updateIfNewReleaseAvailable()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
             ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)

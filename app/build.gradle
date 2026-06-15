@@ -3,8 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.appdistribution'
 
 // Load SFTP credentials from local.properties (never commit these)
 Properties localProps = new Properties()
@@ -21,8 +19,8 @@ android {
         applicationId "com.example.fmoraga.dictuc"
         minSdk 26
         targetSdk 35
-        versionCode 3
-        versionName "2.1"
+        versionCode 4
+        versionName "2.2"
 
         // SFTP credentials via BuildConfig — defined in local.properties
         buildConfigField "String", "SFTP_HOST", "\"${localProps.getProperty('sftp.host', 'inet.dictuc.cl')}\""
@@ -40,19 +38,9 @@ android {
     }
 
     buildTypes {
-        debug {
-            firebaseAppDistribution {
-                testers = "camiloarintrabajo@gmail.com"
-                releaseNotesFile = "release_notes.txt"
-            }
-        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            firebaseAppDistribution {
-                releaseNotesFile = "release_notes.txt"
-                groups = "muestreadores"
-            }
         }
     }
 
@@ -124,10 +112,6 @@ dependencies {
     // Activity + Fragment KTX
     implementation 'androidx.activity:activity-ktx:1.9.1'
     implementation 'androidx.fragment:fragment-ktx:1.8.1'
-
-    // Firebase
-    debugImplementation 'com.google.firebase:firebase-appdistribution:16.0.0-beta19'
-    releaseImplementation 'com.google.firebase:firebase-appdistribution-api:16.0.0-beta19'
 
     // JSch for SFTP (modern maintained fork, available on Maven Central)
     implementation 'com.github.mwiede:jsch:0.2.16'
